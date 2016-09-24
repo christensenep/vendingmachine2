@@ -23,4 +23,13 @@ public class CoinTypeTest {
 
     assertEquals(CoinType.QUARTER, CoinType.identifyCoin(mockQuarter));
   }
+
+  @Test
+  public void identifyDime() {
+    Coin mockDime = mock(Coin.class);
+    when(mockDime.getWeight()).thenReturn(2.268);
+    when(mockDime.getDiameter()).thenReturn(17.91);
+
+    assertEquals(CoinType.DIME, CoinType.identifyCoin(mockDime));
+  }
 }
