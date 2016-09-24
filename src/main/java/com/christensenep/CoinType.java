@@ -3,5 +3,9 @@ package com.christensenep;
 public enum CoinType {
   QUARTER,
   DIME,
-  NICKEL
+  NICKEL;
+
+  public static CoinType identifyCoin(Coin coin) {
+    return QUARTER;
+  }
 }
