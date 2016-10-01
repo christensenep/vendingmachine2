@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
@@ -60,6 +61,16 @@ public class CoinTypeTest {
   @Test
   public void getNickelValue() {
     assertEquals(5, CoinType.NICKEL.getValue());
+  }
+
+  @Test
+  public void getCoinTypeWeight() {
+    assertNotEquals(0, CoinType.QUARTER.getWeight(), 0);
+  }
+
+  @Test
+  public void getCoinTypeDiameter() {
+    assertNotEquals(0, CoinType.QUARTER.getDiameter(), 0);
   }
 
   @Test

@@ -24,6 +24,8 @@ public enum CoinType {
   public static double getWeightTolerance() { return weightTolerance; }
   public static double getDiameterTolerance() { return diameterTolerance; }
 
+  public double getWeight() { return this.weight; }
+  public double getDiameter() { return this.diameter; }
   public int getValue() { return this.value; }
 
   private boolean isMatch(Coin coin) {
