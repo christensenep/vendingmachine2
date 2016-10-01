@@ -8,6 +8,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class CoinTypeTest {
+  @Before
+  public void initialize() {
+    CoinType.setWeightTolerance(0.020);
+  }
+
   @Test
   public void quartersNickelsAndDimesExist() {
     assertNotNull(CoinType.valueOf("QUARTER"));
@@ -67,5 +72,45 @@ public class CoinTypeTest {
   public void getAndSetDiameterTolerance() {
     CoinType.setDiameterTolerance(3.30);
     assertEquals(3.30, CoinType.getDiameterTolerance(), 0);
+  }
+
+  @Test
+  public void identifyHeavyQuarter() {
+    double epsilon = 0.00001;
+    Coin mockQuarter = mock(Coin.class);
+    when(mockQuarter.getWeight()).thenReturn(5.670 + CoinType.getWeightTolerance() - epsilon);
+    when(mockQuarter.getDiameter()).thenReturn(24.26);
+
+    assertEquals(CoinType.QUARTER, CoinType.identifyCoin(mockQuarter));
+  }
+
+  @Test
+  public void failToIdentifyTooHeavyQuarter() {
+    double epsilon = 0.00001;
+    Coin mockQuarter = mock(Coin.class);
+    when(mockQuarter.getWeight()).thenReturn(5.670 + CoinType.getWeightTolerance() + epsilon);
+    when(mockQuarter.getDiameter()).thenReturn(24.26);
+
+    assertEquals(null, CoinType.identifyCoin(mockQuarter));
+  }
+
+  @Test
+  public void identifyLightQuarter() {
+    double epsilon = 0.00001;
+    Coin mockQuarter = mock(Coin.class);
+    when(mockQuarter.getWeight()).thenReturn(5.670 - CoinType.getWeightTolerance() + epsilon);
+    when(mockQuarter.getDiameter()).thenReturn(24.26);
+
+    assertEquals(CoinType.QUARTER, CoinType.identifyCoin(mockQuarter));
+  }
+
+  @Test
+  public void failToIdentifyTooLightQuarter() {
+    double epsilon = 0.00001;
+    Coin mockQuarter = mock(Coin.class);
+    when(mockQuarter.getWeight()).thenReturn(5.670 - CoinType.getWeightTolerance() - epsilon);
+    when(mockQuarter.getDiameter()).thenReturn(24.26);
+
+    assertEquals(null, CoinType.identifyCoin(mockQuarter));
   }
 }
