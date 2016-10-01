@@ -12,6 +12,7 @@ public class CoinTypeTest {
   @Before
   public void initialize() {
     CoinType.setWeightTolerance(0.020);
+    CoinType.setDiameterTolerance(0.20);
   }
 
   @Test
@@ -121,6 +122,46 @@ public class CoinTypeTest {
     Coin mockQuarter = mock(Coin.class);
     when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight() - CoinType.getWeightTolerance() - epsilon);
     when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
+
+    assertEquals(null, CoinType.identifyCoin(mockQuarter));
+  }
+
+  @Test
+  public void identifyBigCoin() {
+    double epsilon = 0.00001;
+    Coin mockQuarter = mock(Coin.class);
+    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight());
+    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter() + CoinType.getDiameterTolerance() - epsilon);
+
+    assertEquals(CoinType.QUARTER, CoinType.identifyCoin(mockQuarter));
+  }
+
+  @Test
+  public void failToIdentifyTooBigCoin() {
+    double epsilon = 0.00001;
+    Coin mockDime = mock(Coin.class);
+    when(mockDime.getWeight()).thenReturn(CoinType.DIME.getWeight());
+    when(mockDime.getDiameter()).thenReturn(CoinType.DIME.getDiameter() + CoinType.getDiameterTolerance() + epsilon);
+
+    assertEquals(null, CoinType.identifyCoin(mockDime));
+  }
+
+  @Test
+  public void identifySmallCoin() {
+    double epsilon = 0.00001;
+    Coin mockNickel = mock(Coin.class);
+    when(mockNickel.getWeight()).thenReturn(CoinType.NICKEL.getWeight());
+    when(mockNickel.getDiameter()).thenReturn(CoinType.NICKEL.getDiameter() - CoinType.getDiameterTolerance() + epsilon);
+
+    assertEquals(CoinType.NICKEL, CoinType.identifyCoin(mockNickel));
+  }
+
+  @Test
+  public void failToIdentifyTooSmallCoin() {
+    double epsilon = 0.00001;
+    Coin mockQuarter = mock(Coin.class);
+    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight());
+    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter() - CoinType.getDiameterTolerance() - epsilon);
 
     assertEquals(null, CoinType.identifyCoin(mockQuarter));
   }

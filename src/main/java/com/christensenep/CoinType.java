@@ -30,7 +30,7 @@ public enum CoinType {
 
   private boolean isMatch(Coin coin) {
     return ((Math.abs(coin.getWeight() - this.weight) < getWeightTolerance()) &&
-            (coin.getDiameter() == this.diameter));
+            (Math.abs(coin.getDiameter() - this.diameter) < getDiameterTolerance()));
   }
 
   public static CoinType identifyCoin(Coin coin) {
