@@ -5,6 +5,8 @@ public enum CoinType {
   DIME(2.268, 17.91, 10),
   NICKEL(5.000, 21.21, 5);
 
+  private static double weightTolerance;
+
   private final double weight;
   private final double diameter;
   private final int value;
@@ -14,6 +16,11 @@ public enum CoinType {
     this.diameter = diameter;
     this.value = value;
   }
+
+  public static void setWeightTolerance(double iWeightTolerance) {
+    weightTolerance = iWeightTolerance;
+  }
+  public static double getWeightTolerance() { return weightTolerance; }
 
   public int getValue() { return this.value; }
 

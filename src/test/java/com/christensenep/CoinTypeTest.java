@@ -56,4 +56,10 @@ public class CoinTypeTest {
   public void getNickelValue() {
     assertEquals(5, CoinType.NICKEL.getValue());
   }
+
+  @Test
+  public void getAndSetWeightTolerance() {
+    CoinType.setWeightTolerance(0.020);
+    assertEquals(0.020, CoinType.getWeightTolerance(), 0);
+  }
 }
