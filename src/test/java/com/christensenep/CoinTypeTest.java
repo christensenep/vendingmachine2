@@ -32,4 +32,14 @@ public class CoinTypeTest {
 
     assertEquals(CoinType.DIME, CoinType.identifyCoin(mockDime));
   }
+
+  @Test
+  public void identifyNickel() {
+    Coin mockNickel = mock(Coin.class);
+    when(mockNickel.getWeight()).thenReturn(5.000);
+    when(mockNickel.getDiameter()).thenReturn(21.21);
+
+    assertEquals(CoinType.NICKEL, CoinType.identifyCoin(mockNickel));
+  }
+
 }

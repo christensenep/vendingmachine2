@@ -13,16 +13,20 @@ public enum CoinType {
     this.diameter = diameter;
   }
 
+  private boolean isMatch(Coin coin) {
+    return ((coin.getWeight() == this.weight) && (coin.getDiameter() == this.diameter));
+  }
+
   public static CoinType identifyCoin(Coin coin) {
-    CoinType returnValue = null;
+    CoinType retCoinType = null;
 
-    if (coin.getWeight() == QUARTER.weight && coin.getDiameter() == QUARTER.diameter) {
-      returnValue = QUARTER;
-    }
-    else if (coin.getWeight() == DIME.weight && coin.getDiameter() == DIME.diameter) {
-      returnValue = DIME;
+    for (CoinType coinType : CoinType.values()) {
+      if (coinType.isMatch(coin)) {
+        retCoinType = coinType;
+        break;
+      }
     }
 
-    return returnValue;
+    return retCoinType;
   }
 }
