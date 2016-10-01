@@ -42,4 +42,18 @@ public class CoinTypeTest {
     assertEquals(CoinType.NICKEL, CoinType.identifyCoin(mockNickel));
   }
 
+  @Test
+  public void getQuarterValue() {
+    assertEquals(25, CoinType.QUARTER.getValue());
+  }
+
+  @Test
+  public void getDimeValue() {
+    assertEquals(10, CoinType.DIME.getValue());
+  }
+
+  @Test
+  public void getNickelValue() {
+    assertEquals(5, CoinType.NICKEL.getValue());
+  }
 }
