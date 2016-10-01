@@ -59,7 +59,13 @@ public class CoinTypeTest {
 
   @Test
   public void getAndSetWeightTolerance() {
-    CoinType.setWeightTolerance(0.020);
-    assertEquals(0.020, CoinType.getWeightTolerance(), 0);
+    CoinType.setWeightTolerance(5.50);
+    assertEquals(5.50, CoinType.getWeightTolerance(), 0);
+  }
+
+  @Test
+  public void getAndSetDiameterTolerance() {
+    CoinType.setDiameterTolerance(3.30);
+    assertEquals(3.30, CoinType.getDiameterTolerance(), 0);
   }
 }
