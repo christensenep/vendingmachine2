@@ -24,8 +24,8 @@ public class CoinTypeTest {
   @Test
   public void identifyQuarter() {
     Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(5.670);
-    when(mockQuarter.getDiameter()).thenReturn(24.26);
+    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight());
+    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
 
     assertEquals(CoinType.QUARTER, CoinType.identifyCoin(mockQuarter));
   }
@@ -33,8 +33,8 @@ public class CoinTypeTest {
   @Test
   public void identifyDime() {
     Coin mockDime = mock(Coin.class);
-    when(mockDime.getWeight()).thenReturn(2.268);
-    when(mockDime.getDiameter()).thenReturn(17.91);
+    when(mockDime.getWeight()).thenReturn(CoinType.DIME.getWeight());
+    when(mockDime.getDiameter()).thenReturn(CoinType.DIME.getDiameter());
 
     assertEquals(CoinType.DIME, CoinType.identifyCoin(mockDime));
   }
@@ -42,8 +42,8 @@ public class CoinTypeTest {
   @Test
   public void identifyNickel() {
     Coin mockNickel = mock(Coin.class);
-    when(mockNickel.getWeight()).thenReturn(5.000);
-    when(mockNickel.getDiameter()).thenReturn(21.21);
+    when(mockNickel.getWeight()).thenReturn(CoinType.NICKEL.getWeight());
+    when(mockNickel.getDiameter()).thenReturn(CoinType.NICKEL.getDiameter());
 
     assertEquals(CoinType.NICKEL, CoinType.identifyCoin(mockNickel));
   }
@@ -86,41 +86,41 @@ public class CoinTypeTest {
   }
 
   @Test
-  public void identifyHeavyQuarter() {
+  public void identifyHeavyCoin() {
     double epsilon = 0.00001;
     Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(5.670 + CoinType.getWeightTolerance() - epsilon);
-    when(mockQuarter.getDiameter()).thenReturn(24.26);
+    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight() + CoinType.getWeightTolerance() - epsilon);
+    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
 
     assertEquals(CoinType.QUARTER, CoinType.identifyCoin(mockQuarter));
   }
 
   @Test
-  public void failToIdentifyTooHeavyQuarter() {
+  public void failToIdentifyTooHeavyCoin() {
     double epsilon = 0.00001;
-    Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(5.670 + CoinType.getWeightTolerance() + epsilon);
-    when(mockQuarter.getDiameter()).thenReturn(24.26);
+    Coin mockDime = mock(Coin.class);
+    when(mockDime.getWeight()).thenReturn(CoinType.DIME.getWeight() + CoinType.getWeightTolerance() + epsilon);
+    when(mockDime.getDiameter()).thenReturn(CoinType.DIME.getDiameter());
 
-    assertEquals(null, CoinType.identifyCoin(mockQuarter));
+    assertEquals(null, CoinType.identifyCoin(mockDime));
   }
 
   @Test
-  public void identifyLightQuarter() {
+  public void identifyLightCoin() {
     double epsilon = 0.00001;
-    Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(5.670 - CoinType.getWeightTolerance() + epsilon);
-    when(mockQuarter.getDiameter()).thenReturn(24.26);
+    Coin mockNickel = mock(Coin.class);
+    when(mockNickel.getWeight()).thenReturn(CoinType.NICKEL.getWeight() - CoinType.getWeightTolerance() + epsilon);
+    when(mockNickel.getDiameter()).thenReturn(CoinType.NICKEL.getDiameter());
 
-    assertEquals(CoinType.QUARTER, CoinType.identifyCoin(mockQuarter));
+    assertEquals(CoinType.NICKEL, CoinType.identifyCoin(mockNickel));
   }
 
   @Test
-  public void failToIdentifyTooLightQuarter() {
+  public void failToIdentifyTooLightCoin() {
     double epsilon = 0.00001;
     Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(5.670 - CoinType.getWeightTolerance() - epsilon);
-    when(mockQuarter.getDiameter()).thenReturn(24.26);
+    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight() - CoinType.getWeightTolerance() - epsilon);
+    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
 
     assertEquals(null, CoinType.identifyCoin(mockQuarter));
   }
