@@ -60,4 +60,9 @@ public class MachineTest {
     this.machine.ejectCoins();
     assertEquals(0, this.machine.getInsertedValue());
   }
+
+  @Test(expected=NullPointerException.class)
+  public void insertingNullCoinThrowsException() {
+    this.machine.insertCoin(null);
+  }
 }

@@ -19,6 +19,10 @@ public class Machine {
   }
 
   public void insertCoin(Coin coin) {
+    if (coin == null) {
+      throw new NullPointerException();
+    }
+
     insertedCoins.add(coin);
   }
 
