@@ -49,7 +49,7 @@ public class MachineTest {
 
   @Test
   public void valueIsCorrectWithQuarterAndNickelInsertedThenEjected() {
-    Coin mockQuarter =generateMockCoin(CoinType.QUARTER);
+    Coin mockQuarter = generateMockCoin(CoinType.QUARTER);
     Coin mockNickel = generateMockCoin(CoinType.NICKEL);
 
     assertEquals(0, this.machine.getInsertedValue());
