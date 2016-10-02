@@ -21,6 +21,10 @@ public class Machine {
     return insertedValue;
   }
 
+  int numProducts(ProductType productType) {
+    return 0;
+  }
+
   public void insertCoin(Coin coin) {
     if (coin == null) {
       throw new NullPointerException();

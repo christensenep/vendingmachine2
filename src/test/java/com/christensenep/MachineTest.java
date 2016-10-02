@@ -131,4 +131,9 @@ public class MachineTest {
     assertTrue(returnedCoins.containsAll(coins));
     assertEquals(coins.size(), returnedCoins.size());
   }
+
+  @Test
+  public void hasNoCandyInitially() {
+    assertEquals(0, this.machine.numProducts(ProductType.CANDY));
+  }
 }
