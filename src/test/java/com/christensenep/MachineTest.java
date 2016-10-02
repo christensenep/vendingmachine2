@@ -139,17 +139,12 @@ public class MachineTest {
 
   @Test
   public void hasOneCandyAfterAddingOne() {
-    this.machine.addProducts(ProductType.CANDY, 1);
+    this.machine.addProduct(new Product(ProductType.CANDY));
     assertEquals(1, this.machine.numProducts(ProductType.CANDY));
   }
 
-  @Test(expected=NullPointerException.class)
-  public void exceptionThrownWhenAddingNullProductType() {
-    this.machine.addProducts(null, 1);
-  }
-
   @Test(expected=IllegalArgumentException.class)
-  public void exceptionThrownWhenAddingNegativeNumberOfProducts() {
-    this.machine.addProducts(ProductType.CANDY, -1);
+  public void exceptionThrownWhenAddingNullProductType() {
+    this.machine.addProduct(null);
   }
 }

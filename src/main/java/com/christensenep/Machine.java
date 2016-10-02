@@ -8,25 +8,31 @@ import java.util.Stack;
 public class Machine {
   private Stack<Coin> insertedCoins = new Stack<Coin>();
   private List<Coin> returnedCoins = new ArrayList<Coin>();
-  private EnumMap<ProductType, Integer> storedProducts;
+  private EnumMap<ProductType, Stack<Product>> storedProducts;
 
   public Machine() {
-    storedProducts = new EnumMap<ProductType, Integer>(ProductType.class);
+    storedProducts = new EnumMap<ProductType, Stack<Product>>(ProductType.class);
     for (ProductType productType : ProductType.values()) {
-      storedProducts.put(productType, 0);
+      storedProducts.put(productType, new Stack<Product>());
     }
   }
 
-  public void addProducts(ProductType productType, int numAdded) {
-    if (numAdded < 0) {
-      throw new IllegalArgumentException("numAdded cannot be negative");
+  public void addProduct(Product product) {
+    if (product == null) {
+      throw new IllegalArgumentException("product cannot be null");
     }
 
-    storedProducts.put(productType, storedProducts.get(productType) + numAdded);
+    storedProducts.get(product.getProductType()).add(product);
+  }
+
+  public void addProducts(List<Product> products) {
+    for (Product product : products) {
+      this.addProduct(product);
+    }
   }
 
   int numProducts(ProductType productType) {
-    return storedProducts.get(productType);
+    return storedProducts.get(productType).size();
   }
 
   public void insertCoin(Coin coin) {
