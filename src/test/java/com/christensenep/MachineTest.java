@@ -3,9 +3,11 @@ package com.christensenep;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class MachineTest {
@@ -110,5 +112,23 @@ public class MachineTest {
     List<Coin> returnedCoins = this.machine.getReturnedCoins();
     assertEquals(mockInvalidCoin, returnedCoins.get(0));
     assertEquals(1, returnedCoins.size());
+  }
+
+  @Test
+  public void returnedCoinsCorrectWhenMultipleCoinsInsertedAndEjected() {
+    List<Coin> coins = Arrays.asList(generateMockCoin(CoinType.QUARTER), generateMockCoin(CoinType.DIME), generateMockCoin(null), generateMockCoin(CoinType.QUARTER));
+
+    for (Coin coin : coins) {
+      this.machine.insertCoin(coin);
+    }
+
+    List<Coin> returnedCoins = this.machine.getReturnedCoins();
+    assertEquals(coins.get(2), returnedCoins.get(0));
+    assertEquals(1, returnedCoins.size());
+
+    this.machine.ejectCoins();
+    returnedCoins = this.machine.getReturnedCoins();
+    assertTrue(returnedCoins.containsAll(coins));
+    assertEquals(coins.size(), returnedCoins.size());
   }
 }
