@@ -147,4 +147,9 @@ public class MachineTest {
   public void exceptionThrownWhenAddingNullProductType() {
     this.machine.addProducts(null, 1);
   }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void exceptionThrownWhenAddingNegativeNumberOfProducts() {
+    this.machine.addProducts(ProductType.CANDY, -1);
+  }
 }

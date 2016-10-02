@@ -35,6 +35,10 @@ public class Machine {
   }
 
   public void addProducts(ProductType productType, int numAdded) {
+    if (numAdded < 0) {
+      throw new IllegalArgumentException("numAdded cannot be negative");
+    }
+
     storedProducts.put(productType, storedProducts.get(productType) + numAdded);
   }
 
