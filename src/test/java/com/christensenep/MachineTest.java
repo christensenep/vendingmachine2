@@ -142,4 +142,9 @@ public class MachineTest {
     this.machine.addProducts(ProductType.CANDY, 1);
     assertEquals(1, this.machine.numProducts(ProductType.CANDY));
   }
+
+  @Test(expected=NullPointerException.class)
+  public void exceptionThrownWhenAddingNullProductType() {
+    this.machine.addProducts(null, 1);
+  }
 }
