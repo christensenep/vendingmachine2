@@ -136,4 +136,10 @@ public class MachineTest {
   public void hasNoCandyInitially() {
     assertEquals(0, this.machine.numProducts(ProductType.CANDY));
   }
+
+  @Test
+  public void hasOneCandyAfterAddingOne() {
+    this.machine.addProducts(ProductType.CANDY, 1);
+    assertEquals(1, this.machine.numProducts(ProductType.CANDY));
+  }
 }
