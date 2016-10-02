@@ -3,6 +3,8 @@ package com.christensenep;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -81,5 +83,11 @@ public class MachineTest {
     assertEquals(0, this.machine.getInsertedValue());
     this.machine.insertCoin(mockInvalidCoin);
     assertEquals(0, this.machine.getInsertedValue());
+  }
+
+  @Test
+  public void noReturnedCoinsInitially() {
+    List<Coin> returnedCoins = this.machine.getReturnedCoins();
+    assertEquals(0, returnedCoins.size());
   }
 }

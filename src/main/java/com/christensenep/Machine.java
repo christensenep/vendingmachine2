@@ -1,9 +1,12 @@
 package com.christensenep;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Machine {
   private Stack<Coin> insertedCoins = new Stack<Coin>();
+  private List<Coin> returnedCoins = new ArrayList<Coin>();
 
   int getInsertedValue() {
     int insertedValue = 0;
@@ -28,5 +31,9 @@ public class Machine {
 
   public void ejectCoins() {
     this.insertedCoins.clear();
+  }
+
+  public List<Coin> getReturnedCoins() {
+    return returnedCoins;
   }
 }
