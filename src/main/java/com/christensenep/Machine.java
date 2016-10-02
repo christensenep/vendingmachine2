@@ -1,21 +1,28 @@
 package com.christensenep;
 
-public class Machine {
-  private int insertedValue = 0;
+import java.util.Stack;
 
-  public int getInsertedValue() {
+public class Machine {
+  private Stack<Coin> insertedCoins = new Stack<Coin>();
+
+  int getInsertedValue() {
+    int insertedValue = 0;
+
+    for (Coin coin : insertedCoins) {
+      CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
+      if (coinType != null) {
+        insertedValue += coinType.getValue();
+      }
+    }
+
     return insertedValue;
   }
 
   public void insertCoin(Coin coin) {
-    CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
-
-    if (coinType != null) {
-      this.insertedValue += coinType.getValue();
-    }
+    insertedCoins.add(coin);
   }
 
   public void ejectCoins() {
-    this.insertedValue = 0;
+    this.insertedCoins.clear();
   }
 }
