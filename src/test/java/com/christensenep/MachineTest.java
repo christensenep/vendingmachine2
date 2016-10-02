@@ -99,5 +99,6 @@ public class MachineTest {
     this.machine.ejectCoins();
     List<Coin> returnedCoins = this.machine.getReturnedCoins();
     assertEquals(mockQuarter, returnedCoins.get(0));
+    assertEquals(1, returnedCoins.size());
   }
 }
