@@ -147,4 +147,13 @@ public class MachineTest {
   public void exceptionThrownWhenAddingNullProductType() {
     this.machine.addProduct(null);
   }
+
+  @Test
+  public void hasProperNumberOfEachProductAfterAddingAListOfProducts() {
+    List<Product> products = Arrays.asList(new Product(ProductType.CANDY), new Product(ProductType.CANDY), new Product(ProductType.COLA));
+    this.machine.addProducts(products);
+    assertEquals(2, this.machine.numProducts(ProductType.CANDY));
+    assertEquals(1, this.machine.numProducts(ProductType.COLA));
+    assertEquals(0, this.machine.numProducts(ProductType.CHIPS));
+  }
 }
