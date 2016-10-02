@@ -73,7 +73,7 @@ public class MachineTest {
     assertEquals(0, this.machine.getInsertedValue());
   }
 
-  @Test(expected=NullPointerException.class)
+  @Test(expected=IllegalArgumentException.class)
   public void insertingNullCoinThrowsException() {
     this.machine.insertCoin(null);
   }

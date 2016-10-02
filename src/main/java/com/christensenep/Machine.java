@@ -37,7 +37,7 @@ public class Machine {
 
   public void insertCoin(Coin coin) {
     if (coin == null) {
-      throw new NullPointerException();
+      throw new IllegalArgumentException("coin cannot be null");
     }
 
     CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
