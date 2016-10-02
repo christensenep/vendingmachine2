@@ -90,4 +90,14 @@ public class MachineTest {
     List<Coin> returnedCoins = this.machine.getReturnedCoins();
     assertEquals(0, returnedCoins.size());
   }
+
+  @Test
+  public void quarterReturnedWhenEjected() {
+    Coin mockQuarter = generateMockCoin(CoinType.QUARTER);
+
+    this.machine.insertCoin(mockQuarter);
+    this.machine.ejectCoins();
+    List<Coin> returnedCoins = this.machine.getReturnedCoins();
+    assertEquals(mockQuarter, returnedCoins.get(0));
+  }
 }

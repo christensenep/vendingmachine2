@@ -30,6 +30,7 @@ public class Machine {
   }
 
   public void ejectCoins() {
+    this.returnedCoins.addAll(insertedCoins);
     this.insertedCoins.clear();
   }
 
