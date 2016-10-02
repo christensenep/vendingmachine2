@@ -29,4 +29,21 @@ public class MachineTest {
     this.machine.insertCoin(mockQuarter);
     assertEquals(25, this.machine.getInsertedValue());
   }
+
+  @Test
+  public void valueIsCorrectWithQuarterAndNickelInserted() {
+    Coin mockQuarter = mock(Coin.class);
+    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight());
+    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
+
+    Coin mockNickel = mock(Coin.class);
+    when(mockNickel.getWeight()).thenReturn(CoinType.NICKEL.getWeight());
+    when(mockNickel.getDiameter()).thenReturn(CoinType.NICKEL.getDiameter());
+
+    assertEquals(0, this.machine.getInsertedValue());
+    this.machine.insertCoin(mockNickel);
+    assertEquals(5, this.machine.getInsertedValue());
+    this.machine.insertCoin(mockQuarter);
+    assertEquals(30, this.machine.getInsertedValue());
+  }
 }
