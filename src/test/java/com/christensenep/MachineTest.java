@@ -11,8 +11,16 @@ public class MachineTest {
 
   private Coin generateMockCoin(CoinType coinType) {
     Coin mockCoin = mock(Coin.class);
-    when(mockCoin.getWeight()).thenReturn(coinType.getWeight());
-    when(mockCoin.getDiameter()).thenReturn(coinType.getDiameter());
+
+    if (coinType != null) {
+      when(mockCoin.getWeight()).thenReturn(coinType.getWeight());
+      when(mockCoin.getDiameter()).thenReturn(coinType.getDiameter());
+    }
+    else {
+      when(mockCoin.getWeight()).thenReturn(10000.0);
+      when(mockCoin.getDiameter()).thenReturn(10000.0);
+    }
+
     return mockCoin;
   }
 
@@ -64,5 +72,14 @@ public class MachineTest {
   @Test(expected=NullPointerException.class)
   public void insertingNullCoinThrowsException() {
     this.machine.insertCoin(null);
+  }
+
+  @Test
+  public void valueStaysZeroWhenInsertingInvalidCoin() {
+    Coin mockInvalidCoin = generateMockCoin(null);
+
+    assertEquals(0, this.machine.getInsertedValue());
+    this.machine.insertCoin(mockInvalidCoin);
+    assertEquals(0, this.machine.getInsertedValue());
   }
 }
