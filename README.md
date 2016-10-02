@@ -1,0 +1,1 @@
+Second take on an implementation of the Vending Machine kata found [here](https://github.com/guyroyse/vending-machine-kata).
