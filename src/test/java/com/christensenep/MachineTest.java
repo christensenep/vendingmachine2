@@ -101,4 +101,14 @@ public class MachineTest {
     assertEquals(mockQuarter, returnedCoins.get(0));
     assertEquals(1, returnedCoins.size());
   }
+
+  @Test
+  public void invalidCoinReturnedWhenInserted() {
+    Coin mockInvalidCoin = generateMockCoin(null);
+
+    this.machine.insertCoin(mockInvalidCoin);
+    List<Coin> returnedCoins = this.machine.getReturnedCoins();
+    assertEquals(mockInvalidCoin, returnedCoins.get(0));
+    assertEquals(1, returnedCoins.size());
+  }
 }

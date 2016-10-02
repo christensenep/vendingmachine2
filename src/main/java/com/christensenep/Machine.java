@@ -26,7 +26,13 @@ public class Machine {
       throw new NullPointerException();
     }
 
-    insertedCoins.add(coin);
+    CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
+    if (coinType != null) {
+      insertedCoins.add(coin);
+    }
+    else {
+      returnedCoins.add(coin);
+    }
   }
 
   public void ejectCoins() {
