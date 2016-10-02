@@ -19,11 +19,6 @@ public enum CoinType {
   public double getDiameter() { return this.diameter; }
   public int getValue() { return this.value; }
 
-  private boolean isMatch(Coin coin, double weightTolerance, double diameterTolerance) {
-    return ((Math.abs(coin.getWeight() - this.weight) <= weightTolerance) &&
-            (Math.abs(coin.getDiameter() - this.diameter) <= diameterTolerance));
-  }
-
   public static CoinType identifyCoin(Coin coin, double weightTolerance, double diameterTolerance) {
     CoinType retCoinType = null;
 
@@ -35,5 +30,10 @@ public enum CoinType {
     }
 
     return retCoinType;
+  }
+
+  private boolean isMatch(Coin coin, double weightTolerance, double diameterTolerance) {
+    return ((Math.abs(coin.getWeight() - this.weight) <= weightTolerance) &&
+        (Math.abs(coin.getDiameter() - this.diameter) <= diameterTolerance));
   }
 }

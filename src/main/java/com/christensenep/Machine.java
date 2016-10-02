@@ -17,29 +17,16 @@ public class Machine {
     }
   }
 
-  int getInsertedValue() {
-    int insertedValue = 0;
-
-    for (Coin coin : insertedCoins) {
-      CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
-      if (coinType != null) {
-        insertedValue += coinType.getValue();
-      }
-    }
-
-    return insertedValue;
-  }
-
-  int numProducts(ProductType productType) {
-    return storedProducts.get(productType);
-  }
-
   public void addProducts(ProductType productType, int numAdded) {
     if (numAdded < 0) {
       throw new IllegalArgumentException("numAdded cannot be negative");
     }
 
     storedProducts.put(productType, storedProducts.get(productType) + numAdded);
+  }
+
+  int numProducts(ProductType productType) {
+    return storedProducts.get(productType);
   }
 
   public void insertCoin(Coin coin) {
@@ -54,6 +41,19 @@ public class Machine {
     else {
       returnedCoins.add(coin);
     }
+  }
+
+  int getInsertedValue() {
+    int insertedValue = 0;
+
+    for (Coin coin : insertedCoins) {
+      CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
+      if (coinType != null) {
+        insertedValue += coinType.getValue();
+      }
+    }
+
+    return insertedValue;
   }
 
   public void ejectCoins() {
