@@ -9,6 +9,13 @@ import static org.mockito.Mockito.*;
 public class MachineTest {
   private Machine machine;
 
+  private Coin generateMockCoin(CoinType coinType) {
+    Coin mockCoin = mock(Coin.class);
+    when(mockCoin.getWeight()).thenReturn(coinType.getWeight());
+    when(mockCoin.getDiameter()).thenReturn(coinType.getDiameter());
+    return mockCoin;
+  }
+
   @Before
   public void initialize() {
     this.machine = new Machine();
@@ -21,9 +28,7 @@ public class MachineTest {
 
   @Test
   public void valueIsCorrectWithQuarterInserted() {
-    Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight());
-    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
+    Coin mockQuarter = generateMockCoin(CoinType.QUARTER);
 
     assertEquals(0, this.machine.getInsertedValue());
     this.machine.insertCoin(mockQuarter);
@@ -32,13 +37,8 @@ public class MachineTest {
 
   @Test
   public void valueIsCorrectWithQuarterAndNickelInserted() {
-    Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight());
-    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
-
-    Coin mockNickel = mock(Coin.class);
-    when(mockNickel.getWeight()).thenReturn(CoinType.NICKEL.getWeight());
-    when(mockNickel.getDiameter()).thenReturn(CoinType.NICKEL.getDiameter());
+    Coin mockQuarter = generateMockCoin(CoinType.QUARTER);
+    Coin mockNickel = generateMockCoin(CoinType.NICKEL);
 
     assertEquals(0, this.machine.getInsertedValue());
     this.machine.insertCoin(mockNickel);
@@ -49,13 +49,8 @@ public class MachineTest {
 
   @Test
   public void valueIsCorrectWithQuarterAndNickelInsertedThenEjected() {
-    Coin mockQuarter = mock(Coin.class);
-    when(mockQuarter.getWeight()).thenReturn(CoinType.QUARTER.getWeight());
-    when(mockQuarter.getDiameter()).thenReturn(CoinType.QUARTER.getDiameter());
-
-    Coin mockNickel = mock(Coin.class);
-    when(mockNickel.getWeight()).thenReturn(CoinType.NICKEL.getWeight());
-    when(mockNickel.getDiameter()).thenReturn(CoinType.NICKEL.getDiameter());
+    Coin mockQuarter =generateMockCoin(CoinType.QUARTER);
+    Coin mockNickel = generateMockCoin(CoinType.NICKEL);
 
     assertEquals(0, this.machine.getInsertedValue());
     this.machine.insertCoin(mockNickel);
