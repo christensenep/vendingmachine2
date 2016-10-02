@@ -14,4 +14,8 @@ public class Machine {
       this.insertedValue += coinType.getValue();
     }
   }
+
+  public void ejectCoins() {
+    this.insertedValue = 0;
+  }
 }
