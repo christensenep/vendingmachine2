@@ -250,4 +250,9 @@ public class MachineTest {
     this.machine.setDiameterTolerance(0);
     assertEquals(0, this.machine.getDiameterTolerance(), 0);
   }
+
+  @Test
+  public void emptyMachineDisplaysInsertCoin() {
+    assertEquals("INSERT COIN", this.machine.getDisplay());
+  }
 }

@@ -138,4 +138,8 @@ public class Machine {
   public List<Coin> getReturnedCoins() {
     return returnedCoins;
   }
+
+  public String getDisplay() {
+    return "INSERT COIN";
+  }
 }
