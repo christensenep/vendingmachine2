@@ -12,11 +12,18 @@ public class Machine {
   private EnumMap<ProductType, Stack<Product>> storedProducts;
 
   public Machine() {
+    initStoredProductsMap();
+    initStoredCoinsMap();
+  }
+
+  private void initStoredProductsMap() {
     storedProducts = new EnumMap<ProductType, Stack<Product>>(ProductType.class);
     for (ProductType productType : ProductType.values()) {
       storedProducts.put(productType, new Stack<Product>());
     }
+  }
 
+  private void initStoredCoinsMap() {
     storedCoins = new EnumMap<CoinType, Stack<Coin>>(CoinType.class);
     for (CoinType coinType : CoinType.values()) {
       storedCoins.put(coinType, new Stack<Coin>());
@@ -36,6 +43,7 @@ public class Machine {
       this.addProduct(product);
     }
   }
+
   int numProducts(ProductType productType) {
     return storedProducts.get(productType).size();
   }
