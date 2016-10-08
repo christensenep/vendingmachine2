@@ -182,4 +182,18 @@ public class MachineTest {
   public void diameterToleranceIsZeroInitially() {
     assertEquals(0, this.machine.getDiameterTolerance(), 0);
   }
+
+  @Test
+  public void setWeightToleranceToPositiveValue() {
+    final double TOLERANCE = 0.020;
+    this.machine.setWeightTolerance(TOLERANCE);
+    assertEquals(TOLERANCE, this.machine.getWeightTolerance(), 0);
+  }
+
+  @Test
+  public void setDiameterToleranceToPositiveValue() {
+    final double TOLERANCE = 0.20;
+    this.machine.setDiameterTolerance(TOLERANCE);
+    assertEquals(TOLERANCE, this.machine.getDiameterTolerance(), 0);
+  }
 }

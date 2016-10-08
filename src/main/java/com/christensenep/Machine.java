@@ -36,6 +36,9 @@ public class Machine {
   public double getWeightTolerance() { return this.weightTolerance; }
   public double getDiameterTolerance() { return this.diameterTolerance; }
 
+  public void setWeightTolerance(double weightTolerance) { this.weightTolerance = weightTolerance; }
+  public void setDiameterTolerance(double diameterTolerance) { this.diameterTolerance = diameterTolerance; }
+
   public void addProduct(Product product) {
     if (product == null) {
       throw new IllegalArgumentException("product cannot be null");
