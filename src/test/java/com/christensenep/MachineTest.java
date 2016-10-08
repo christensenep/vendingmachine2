@@ -156,4 +156,11 @@ public class MachineTest {
     assertEquals(1, this.machine.numProducts(ProductType.COLA));
     assertEquals(0, this.machine.numProducts(ProductType.CHIPS));
   }
+
+  @Test
+  public void hasNoStoredCoinsInitially() {
+    for (CoinType coinType : CoinType.values()) {
+      assertEquals(0, this.machine.numStoredCoins(coinType));
+    }
+  }
 }

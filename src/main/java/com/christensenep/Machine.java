@@ -8,12 +8,18 @@ import java.util.Stack;
 public class Machine {
   private Stack<Coin> insertedCoins = new Stack<Coin>();
   private List<Coin> returnedCoins = new ArrayList<Coin>();
+  private EnumMap<CoinType, Stack<Coin>> storedCoins;
   private EnumMap<ProductType, Stack<Product>> storedProducts;
 
   public Machine() {
     storedProducts = new EnumMap<ProductType, Stack<Product>>(ProductType.class);
     for (ProductType productType : ProductType.values()) {
       storedProducts.put(productType, new Stack<Product>());
+    }
+
+    storedCoins = new EnumMap<CoinType, Stack<Coin>>(CoinType.class);
+    for (CoinType coinType : CoinType.values()) {
+      storedCoins.put(coinType, new Stack<Coin>());
     }
   }
 
@@ -30,9 +36,12 @@ public class Machine {
       this.addProduct(product);
     }
   }
-
   int numProducts(ProductType productType) {
     return storedProducts.get(productType).size();
+  }
+
+  int numStoredCoins(CoinType coinType) {
+    return storedCoins.get(coinType).size();
   }
 
   public void insertCoin(Coin coin) {
