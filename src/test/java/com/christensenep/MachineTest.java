@@ -306,4 +306,10 @@ public class MachineTest {
     assertEquals(true, this.machine.exactChangeRequired());
   }
 
+  @Test
+  public void machineWithChipsAndDimeRequiresExactChange() {
+    this.machine.addProduct(generateMockProduct(ProductType.CHIPS));
+    this.machine.addStoredCoin(generateMockCoin(CoinType.DIME));
+    assertEquals(true, this.machine.exactChangeRequired());
+  }
 }
