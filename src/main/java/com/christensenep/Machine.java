@@ -11,6 +11,9 @@ public class Machine {
   private EnumMap<CoinType, Stack<Coin>> storedCoins;
   private EnumMap<ProductType, Stack<Product>> storedProducts;
 
+  private double diameterTolerance = 0.0;
+  private double weightTolerance = 0.0;
+
   public Machine() {
     initStoredProductsMap();
     initStoredCoinsMap();
@@ -29,6 +32,9 @@ public class Machine {
       storedCoins.put(coinType, new Stack<Coin>());
     }
   }
+
+  public double getWeightTolerance() { return this.weightTolerance; }
+  public double getDiameterTolerance() { return this.diameterTolerance; }
 
   public void addProduct(Product product) {
     if (product == null) {
@@ -49,7 +55,7 @@ public class Machine {
   }
 
   CoinType identifyCoin(Coin coin) {
-    return CoinType.identifyCoin(coin, 0, 0);
+    return CoinType.identifyCoin(coin, this.getWeightTolerance(), this.getDiameterTolerance());
   }
 
   public void addStoredCoin(Coin coin) {

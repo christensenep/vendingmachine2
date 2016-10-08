@@ -172,4 +172,14 @@ public class MachineTest {
     this.machine.addStoredCoin(mockQuarter);
     assertEquals(1, this.machine.numStoredCoins(CoinType.QUARTER));
   }
+
+  @Test
+  public void weightToleranceIsZeroInitially() {
+    assertEquals(0, this.machine.getWeightTolerance(), 0);
+  }
+
+  @Test
+  public void diameterToleranceIsZeroInitially() {
+    assertEquals(0, this.machine.getDiameterTolerance(), 0);
+  }
 }
