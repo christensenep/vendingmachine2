@@ -255,4 +255,22 @@ public class MachineTest {
   public void emptyMachineDisplaysInsertCoin() {
     assertEquals("INSERT COIN", this.machine.getDisplay());
   }
+
+  @Test
+  public void machineWithChipsDisplaysExactChangeOnly() {
+    this.machine.addProduct(generateMockProduct(ProductType.CHIPS));
+    assertEquals("EXACT CHANGE ONLY", this.machine.getDisplay());
+  }
+
+  @Test
+  public void machineWithColaDisplaysExactChangeOnly() {
+    this.machine.addProduct(generateMockProduct(ProductType.COLA));
+    assertEquals("EXACT CHANGE ONLY", this.machine.getDisplay());
+  }
+
+  @Test
+  public void machineWithCandyDisplaysExactChangeOnly() {
+    this.machine.addProduct(generateMockProduct(ProductType.CANDY));
+    assertEquals("EXACT CHANGE ONLY", this.machine.getDisplay());
+  }
 }

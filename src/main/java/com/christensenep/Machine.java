@@ -140,6 +140,14 @@ public class Machine {
   }
 
   public String getDisplay() {
-    return "INSERT COIN";
+    String displayString = "INSERT COIN";
+
+    if (this.numProducts(ProductType.CANDY) > 0 ||
+        this.numProducts(ProductType.COLA) > 0 ||
+        this.numProducts(ProductType.CHIPS) > 0) {
+      displayString = "EXACT CHANGE ONLY";
+    }
+
+    return displayString;
   }
 }
