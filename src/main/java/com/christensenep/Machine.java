@@ -75,6 +75,10 @@ public class Machine {
   }
 
   public void addStoredCoin(Coin coin) {
+    if (coin == null) {
+      throw new IllegalArgumentException("coin cannot be null");
+    }
+
     CoinType coinType = this.identifyCoin(coin);
     if (coinType != null) {
       storedCoins.get(coinType).push(coin);

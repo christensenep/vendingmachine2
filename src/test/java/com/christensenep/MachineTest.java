@@ -190,6 +190,11 @@ public class MachineTest {
     assertEquals(0, this.machine.numStoredCoins(CoinType.NICKEL));
   }
 
+  @Test(expected=IllegalArgumentException.class)
+  public void addingNullStoredCoinThrowsException() {
+    this.machine.addStoredCoin(null);
+  }
+
   @Test
   public void weightToleranceIsZeroInitially() {
     assertEquals(0, this.machine.getWeightTolerance(), 0);
