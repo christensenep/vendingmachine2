@@ -200,6 +200,11 @@ public class MachineTest {
     this.machine.addStoredCoin(null);
   }
 
+  @Test(expected=IllegalArgumentException.class)
+  public void addingNullStoredCoinListThrowsException() {
+    this.machine.addStoredCoins(null);
+  }
+
   @Test
   public void weightToleranceIsZeroInitially() {
     assertEquals(0, this.machine.getWeightTolerance(), 0);

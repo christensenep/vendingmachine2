@@ -90,6 +90,10 @@ public class Machine {
   }
 
   public void addStoredCoins(List<Coin> coins) {
+    if (coins == null) {
+      throw new IllegalArgumentException("coins cannot be null");
+    }
+
     for (Coin coin : coins) {
       this.addStoredCoin(coin);
     }
