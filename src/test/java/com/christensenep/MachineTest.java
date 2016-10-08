@@ -158,6 +158,11 @@ public class MachineTest {
     this.machine.addProduct(null);
   }
 
+  @Test(expected=IllegalArgumentException.class)
+  public void addingNullProductListThrowsException() {
+    this.machine.addProducts(null);
+  }
+
   @Test
   public void hasProperNumberOfEachProductAfterAddingAListOfProducts() {
     List<Product> products = Arrays.asList(generateMockProduct(ProductType.CANDY), generateMockProduct(ProductType.CANDY), generateMockProduct(ProductType.COLA));

@@ -61,6 +61,10 @@ public class Machine {
   }
 
   public void addProducts(List<Product> products) {
+    if (products == null) {
+      throw new IllegalArgumentException("products cannot be null");
+    }
+
     for (Product product : products) {
       this.addProduct(product);
     }
