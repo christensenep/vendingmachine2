@@ -142,13 +142,14 @@ public class Machine {
   boolean exactChangeRequired() {
     boolean exactChangeRequired = false;
 
-    if (this.numProducts(ProductType.CANDY) > 0 || this.numProducts(ProductType.COLA) > 0) {
+    if (this.numProducts(ProductType.CANDY) > 0 || this.numProducts(ProductType.COLA) > 0 || this.numProducts(ProductType.CHIPS) > 0) {
       if (this.numStoredCoins(CoinType.NICKEL) == 0) {
         exactChangeRequired = true;
       }
     }
-    else if (this.numProducts(ProductType.CHIPS) > 0) {
-      if (this.numStoredCoins(CoinType.NICKEL) == 0 || this.numStoredCoins(CoinType.DIME) == 0) {
+
+    if (this.numProducts(ProductType.CHIPS) > 0) {
+      if (this.numStoredCoins(CoinType.NICKEL) == 1 && this.numStoredCoins(CoinType.DIME) == 0) {
         exactChangeRequired = true;
       }
     }
