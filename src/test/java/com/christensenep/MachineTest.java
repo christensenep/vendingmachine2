@@ -133,8 +133,10 @@ public class MachineTest {
   }
 
   @Test
-  public void hasNoCandyInitially() {
-    assertEquals(0, this.machine.numProducts(ProductType.CANDY));
+  public void hasNoProductsInitially() {
+    for (ProductType productType : ProductType.values()) {
+      assertEquals(0, this.machine.numProducts(productType));
+    }
   }
 
   @Test
