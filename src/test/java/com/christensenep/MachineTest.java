@@ -263,29 +263,39 @@ public class MachineTest {
   }
 
   @Test
-  public void machineWithColaDisplaysExactChangeOnly() {
+  public void emptyMachineDoesNotRequireExactChange() {
+    assertEquals(false, this.machine.exactChangeRequired());
+  }
+
+  @Test
+  public void machineWithChipsRequiresExactChange() {
+    this.machine.addProduct(generateMockProduct(ProductType.CHIPS));
+    assertEquals(true, this.machine.exactChangeRequired());
+  }
+
+  @Test
+  public void machineWithColaRequiresExactChange() {
     this.machine.addProduct(generateMockProduct(ProductType.COLA));
-    assertEquals("EXACT CHANGE ONLY", this.machine.getDisplay());
+    assertEquals(true, this.machine.exactChangeRequired());
   }
 
   @Test
-  public void machineWithCandyDisplaysExactChangeOnly() {
+  public void machineWithCandyRequiresExactChange() {
     this.machine.addProduct(generateMockProduct(ProductType.CANDY));
-    assertEquals("EXACT CHANGE ONLY", this.machine.getDisplay());
+    assertEquals(true, this.machine.exactChangeRequired());
   }
 
   @Test
-  public void machineWithColaAndNickelDisplaysInsertCoin() {
+  public void machineWithColaAndNickelDoesNotRequireExactChange() {
     this.machine.addProduct(generateMockProduct(ProductType.COLA));
     this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
-    assertEquals("INSERT COIN", this.machine.getDisplay());
+    assertEquals(false, this.machine.exactChangeRequired());
   }
 
   @Test
-  public void machineWithCandyAndNickelDisplaysInsertCoin() {
+  public void machineWithCandyAndNickelDoesNotRequireExactChange() {
     this.machine.addProduct(generateMockProduct(ProductType.CANDY));
     this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
-    assertEquals("INSERT COIN", this.machine.getDisplay());
+    assertEquals(false, this.machine.exactChangeRequired());
   }
-
 }

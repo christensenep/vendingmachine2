@@ -139,19 +139,25 @@ public class Machine {
     return returnedCoins;
   }
 
-  public String getDisplay() {
-    String displayString = "INSERT COIN";
+  boolean exactChangeRequired() {
+    boolean exactChangeRequired = false;
 
-    if (this.numProducts(ProductType.CANDY) > 0 ||
-        this.numProducts(ProductType.COLA) > 0) {
-      if (this.numStoredCoins(CoinType.NICKEL) > 0) {
-        displayString = "INSERT COIN";
-      }
-      else {
-        displayString = "EXACT CHANGE ONLY";
+    if (this.numProducts(ProductType.CANDY) > 0 || this.numProducts(ProductType.COLA) > 0) {
+      if (this.numStoredCoins(CoinType.NICKEL) == 0) {
+        exactChangeRequired = true;
       }
     }
     else if (this.numProducts(ProductType.CHIPS) > 0) {
+      exactChangeRequired = true;
+    }
+
+    return exactChangeRequired;
+  }
+
+  public String getDisplay() {
+    String displayString = "INSERT COIN";
+
+    if (exactChangeRequired()) {
       displayString = "EXACT CHANGE ONLY";
     }
 
