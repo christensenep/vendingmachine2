@@ -298,4 +298,12 @@ public class MachineTest {
     this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
     assertEquals(false, this.machine.exactChangeRequired());
   }
+
+  @Test
+  public void machineWithChipsAndNickelRequiresExactChange() {
+    this.machine.addProduct(generateMockProduct(ProductType.CHIPS));
+    this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
+    assertEquals(true, this.machine.exactChangeRequired());
+  }
+
 }
