@@ -36,8 +36,21 @@ public class Machine {
   public double getWeightTolerance() { return this.weightTolerance; }
   public double getDiameterTolerance() { return this.diameterTolerance; }
 
-  public void setWeightTolerance(double weightTolerance) { this.weightTolerance = weightTolerance; }
-  public void setDiameterTolerance(double diameterTolerance) { this.diameterTolerance = diameterTolerance; }
+  public void setWeightTolerance(double weightTolerance) {
+    if (weightTolerance < 0.0) {
+      throw new IllegalArgumentException("weightTolerance cannot be negative");
+    }
+
+    this.weightTolerance = weightTolerance;
+  }
+
+  public void setDiameterTolerance(double diameterTolerance) {
+    if (diameterTolerance < 0.0) {
+      throw new IllegalArgumentException("diameterTolerance cannot be negative");
+    }
+
+    this.diameterTolerance = diameterTolerance;
+  }
 
   public void addProduct(Product product) {
     if (product == null) {

@@ -196,4 +196,14 @@ public class MachineTest {
     this.machine.setDiameterTolerance(TOLERANCE);
     assertEquals(TOLERANCE, this.machine.getDiameterTolerance(), 0);
   }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void settingNegativeWeightToleranceThrowsException() {
+    this.machine.setWeightTolerance(-0.5);
+  }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void settingNegativeDiameterToleranceThrowsException() {
+    this.machine.setDiameterTolerance(-0.2);
+  }
 }
