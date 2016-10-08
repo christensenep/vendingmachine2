@@ -182,6 +182,15 @@ public class MachineTest {
   }
 
   @Test
+  public void hasProperNumberOfCoinsAfterAddingListOfCoins() {
+    List<Coin> coins = Arrays.asList(generateMockCoin(CoinType.DIME), generateMockCoin(CoinType.DIME), generateMockCoin(CoinType.QUARTER));
+    this.machine.addStoredCoins(coins);
+    assertEquals(2, this.machine.numStoredCoins(CoinType.DIME));
+    assertEquals(1, this.machine.numStoredCoins(CoinType.QUARTER));
+    assertEquals(0, this.machine.numStoredCoins(CoinType.NICKEL));
+  }
+
+  @Test
   public void weightToleranceIsZeroInitially() {
     assertEquals(0, this.machine.getWeightTolerance(), 0);
   }

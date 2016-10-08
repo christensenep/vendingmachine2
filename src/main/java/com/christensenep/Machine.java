@@ -81,6 +81,12 @@ public class Machine {
     }
   }
 
+  public void addStoredCoins(List<Coin> coins) {
+    for (Coin coin : coins) {
+      this.addStoredCoin(coin);
+    }
+  }
+
   int numStoredCoins(CoinType coinType) {
     return storedCoins.get(coinType).size();
   }
