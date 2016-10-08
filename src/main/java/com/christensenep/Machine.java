@@ -48,8 +48,12 @@ public class Machine {
     return storedProducts.get(productType).size();
   }
 
+  CoinType identifyCoin(Coin coin) {
+    return CoinType.identifyCoin(coin, 0, 0);
+  }
+
   public void addStoredCoin(Coin coin) {
-    CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
+    CoinType coinType = this.identifyCoin(coin);
     if (coinType != null) {
       storedCoins.get(coinType).push(coin);
     }
@@ -64,7 +68,7 @@ public class Machine {
       throw new IllegalArgumentException("coin cannot be null");
     }
 
-    CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
+    CoinType coinType = this.identifyCoin(coin);
     if (coinType != null) {
       insertedCoins.add(coin);
     }
@@ -77,7 +81,7 @@ public class Machine {
     int insertedValue = 0;
 
     for (Coin coin : insertedCoins) {
-      CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
+      CoinType coinType = this.identifyCoin(coin);
       if (coinType != null) {
         insertedValue += coinType.getValue();
       }
