@@ -28,6 +28,14 @@ public class MachineTest {
     return mockCoin;
   }
 
+  private Product generateMockProduct(ProductType productType) {
+    Product mockProduct = mock(Product.class);
+
+    when(mockProduct.getProductType()).thenReturn(productType);
+
+    return mockProduct;
+  }
+
   @Before
   public void initialize() {
     this.machine = new Machine();
@@ -141,7 +149,7 @@ public class MachineTest {
 
   @Test
   public void hasOneCandyAfterAddingOne() {
-    this.machine.addProduct(new Product(ProductType.CANDY));
+    this.machine.addProduct(generateMockProduct(ProductType.CANDY));
     assertEquals(1, this.machine.numProducts(ProductType.CANDY));
   }
 
@@ -152,7 +160,7 @@ public class MachineTest {
 
   @Test
   public void hasProperNumberOfEachProductAfterAddingAListOfProducts() {
-    List<Product> products = Arrays.asList(new Product(ProductType.CANDY), new Product(ProductType.CANDY), new Product(ProductType.COLA));
+    List<Product> products = Arrays.asList(generateMockProduct(ProductType.CANDY), generateMockProduct(ProductType.CANDY), generateMockProduct(ProductType.COLA));
     this.machine.addProducts(products);
     assertEquals(2, this.machine.numProducts(ProductType.CANDY));
     assertEquals(1, this.machine.numProducts(ProductType.COLA));
