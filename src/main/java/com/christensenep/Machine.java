@@ -148,7 +148,9 @@ public class Machine {
       }
     }
     else if (this.numProducts(ProductType.CHIPS) > 0) {
-      exactChangeRequired = true;
+      if (this.numStoredCoins(CoinType.NICKEL) == 0 || this.numStoredCoins(CoinType.DIME) == 0) {
+        exactChangeRequired = true;
+      }
     }
 
     return exactChangeRequired;
