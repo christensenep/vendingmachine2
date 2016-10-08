@@ -154,7 +154,7 @@ public class MachineTest {
   }
 
   @Test(expected=IllegalArgumentException.class)
-  public void exceptionThrownWhenAddingNullProduct() {
+  public void addingNullProductThrowsException() {
     this.machine.addProduct(null);
   }
 
