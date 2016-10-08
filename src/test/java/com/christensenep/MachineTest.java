@@ -273,4 +273,19 @@ public class MachineTest {
     this.machine.addProduct(generateMockProduct(ProductType.CANDY));
     assertEquals("EXACT CHANGE ONLY", this.machine.getDisplay());
   }
+
+  @Test
+  public void machineWithColaAndNickelDisplaysInsertCoin() {
+    this.machine.addProduct(generateMockProduct(ProductType.COLA));
+    this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
+    assertEquals("INSERT COIN", this.machine.getDisplay());
+  }
+
+  @Test
+  public void machineWithCandyAndNickelDisplaysInsertCoin() {
+    this.machine.addProduct(generateMockProduct(ProductType.CANDY));
+    this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
+    assertEquals("INSERT COIN", this.machine.getDisplay());
+  }
+
 }

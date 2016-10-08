@@ -143,8 +143,15 @@ public class Machine {
     String displayString = "INSERT COIN";
 
     if (this.numProducts(ProductType.CANDY) > 0 ||
-        this.numProducts(ProductType.COLA) > 0 ||
-        this.numProducts(ProductType.CHIPS) > 0) {
+        this.numProducts(ProductType.COLA) > 0) {
+      if (this.numStoredCoins(CoinType.NICKEL) > 0) {
+        displayString = "INSERT COIN";
+      }
+      else {
+        displayString = "EXACT CHANGE ONLY";
+      }
+    }
+    else if (this.numProducts(ProductType.CHIPS) > 0) {
       displayString = "EXACT CHANGE ONLY";
     }
 
