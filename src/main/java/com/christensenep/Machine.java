@@ -48,6 +48,13 @@ public class Machine {
     return storedProducts.get(productType).size();
   }
 
+  public void addStoredCoin(Coin coin) {
+    CoinType coinType = CoinType.identifyCoin(coin, 0, 0);
+    if (coinType != null) {
+      storedCoins.get(coinType).push(coin);
+    }
+  }
+
   int numStoredCoins(CoinType coinType) {
     return storedCoins.get(coinType).size();
   }

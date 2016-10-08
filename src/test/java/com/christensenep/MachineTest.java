@@ -163,4 +163,11 @@ public class MachineTest {
       assertEquals(0, this.machine.numStoredCoins(coinType));
     }
   }
+
+  @Test
+  public void hasOneQuarterAfterAddingOne() {
+    Coin mockQuarter = generateMockCoin(CoinType.QUARTER);
+    this.machine.addStoredCoin(mockQuarter);
+    assertEquals(1, this.machine.numStoredCoins(CoinType.QUARTER));
+  }
 }
