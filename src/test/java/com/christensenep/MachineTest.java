@@ -380,4 +380,11 @@ public class MachineTest {
     assertEquals(false, this.machine.purchase(ProductType.CANDY));
     assertEquals(0, this.machine.getPurchaseTrayContents().size());
   }
+
+  @Test
+  public void purchaseFailsWithInsufficentCoins() {
+    List<Coin> coins = generateMockCoins(0,4,1,0);
+    assertEquals(false, this.machine.purchase(ProductType.CANDY));
+    assertEquals(0, this.machine.getPurchaseTrayContents().size());
+  }
 }
