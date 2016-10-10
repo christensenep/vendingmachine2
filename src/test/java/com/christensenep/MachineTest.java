@@ -3,6 +3,7 @@ package com.christensenep;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,12 +29,52 @@ public class MachineTest {
     return mockCoin;
   }
 
+  private List<Coin> generateMockCoins(int quarters, int dimes, int nickels, int invalids) {
+    List<Coin> coins = new ArrayList<Coin>(quarters+dimes+nickels+invalids);
+
+    for (int i = 0; i < quarters; ++i) {
+      coins.add(generateMockCoin(CoinType.QUARTER));
+    }
+
+    for (int i = 0; i < dimes; ++i) {
+      coins.add(generateMockCoin(CoinType.DIME));
+    }
+
+    for (int i = 0; i < nickels; ++i) {
+      coins.add(generateMockCoin(CoinType.NICKEL));
+    }
+
+    for (int i = 0; i < invalids; ++i) {
+      coins.add(generateMockCoin(null));
+    }
+
+    return coins;
+  }
+
   private Product generateMockProduct(ProductType productType) {
     Product mockProduct = mock(Product.class);
 
     when(mockProduct.getProductType()).thenReturn(productType);
 
     return mockProduct;
+  }
+
+  private List<Product> generateMockProducts(int colas, int chips, int candies) {
+    List<Product> products = new ArrayList<Product>(candies+chips+colas);
+
+    for (int i = 0; i < colas; ++i) {
+      products.add(generateMockProduct(ProductType.COLA));
+    }
+
+    for (int i = 0; i < chips; ++i) {
+      products.add(generateMockProduct(ProductType.CHIPS));
+    }
+
+    for (int i = 0; i < candies; ++i) {
+      products.add(generateMockProduct(ProductType.CANDY));
+    }
+
+    return products;
   }
 
   @Before
@@ -124,14 +165,14 @@ public class MachineTest {
 
   @Test
   public void returnedCoinsCorrectWhenMultipleCoinsInsertedAndEjected() {
-    List<Coin> coins = Arrays.asList(generateMockCoin(CoinType.QUARTER), generateMockCoin(CoinType.DIME), generateMockCoin(null), generateMockCoin(CoinType.QUARTER));
+    List<Coin> coins = generateMockCoins(2,1,0,1);
 
     for (Coin coin : coins) {
       this.machine.insertCoin(coin);
     }
 
     List<Coin> returnedCoins = this.machine.getReturnedCoins();
-    assertEquals(coins.get(2), returnedCoins.get(0));
+    assertTrue(coins.contains(returnedCoins.get(0)));
     assertEquals(1, returnedCoins.size());
 
     this.machine.ejectCoins();
@@ -165,7 +206,7 @@ public class MachineTest {
 
   @Test
   public void hasProperNumberOfEachProductAfterAddingAListOfProducts() {
-    List<Product> products = Arrays.asList(generateMockProduct(ProductType.CANDY), generateMockProduct(ProductType.CANDY), generateMockProduct(ProductType.COLA));
+    List<Product> products = generateMockProducts(1,0,2);
     this.machine.addProducts(products);
     assertEquals(2, this.machine.numProducts(ProductType.CANDY));
     assertEquals(1, this.machine.numProducts(ProductType.COLA));
@@ -188,7 +229,7 @@ public class MachineTest {
 
   @Test
   public void hasProperNumberOfCoinsAfterAddingListOfCoins() {
-    List<Coin> coins = Arrays.asList(generateMockCoin(CoinType.DIME), generateMockCoin(CoinType.DIME), generateMockCoin(CoinType.QUARTER));
+    List<Coin> coins = generateMockCoins(1,2,0,0);
     this.machine.addStoredCoins(coins);
     assertEquals(2, this.machine.numStoredCoins(CoinType.DIME));
     assertEquals(1, this.machine.numStoredCoins(CoinType.QUARTER));
@@ -316,16 +357,14 @@ public class MachineTest {
   @Test
   public void machineWithChipsNickelAndDimeDoesNotRequireExactChange() {
     this.machine.addProduct(generateMockProduct(ProductType.CHIPS));
-    this.machine.addStoredCoin(generateMockCoin(CoinType.DIME));
-    this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
+    this.machine.addStoredCoins(generateMockCoins(0,1,1,0));
     assertEquals(false, this.machine.exactChangeRequired());
   }
 
   @Test
   public void machineWithChipsAndTwoNickelsDoesNotRequireExactChange() {
     this.machine.addProduct(generateMockProduct(ProductType.CHIPS));
-    this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
-    this.machine.addStoredCoin(generateMockCoin(CoinType.NICKEL));
+    this.machine.addStoredCoins(generateMockCoins(0,0,2,0));
     assertEquals(false, this.machine.exactChangeRequired());
   }
 
