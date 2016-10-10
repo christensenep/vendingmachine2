@@ -160,7 +160,11 @@ public class Machine {
   public String getDisplay() {
     String displayString = "INSERT COIN";
 
-    if (exactChangeRequired()) {
+    if (this.getInsertedValue() > 0) {
+      displayString = Integer.toString(this.getInsertedValue());
+    }
+
+    if (this.exactChangeRequired()) {
       displayString = "EXACT CHANGE ONLY";
     }
 

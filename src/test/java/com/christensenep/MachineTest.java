@@ -329,4 +329,10 @@ public class MachineTest {
     assertEquals(false, this.machine.exactChangeRequired());
   }
 
+  @Test
+  public void displayCurrentValueWithCoinsInserted() {
+    this.machine.insertCoin(generateMockCoin(CoinType.QUARTER));
+    this.machine.insertCoin(generateMockCoin(CoinType.DIME));
+    assertEquals("35", this.machine.getDisplay());
+  }
 }
