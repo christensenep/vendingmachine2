@@ -307,6 +307,12 @@ public class MachineTest {
   }
 
   @Test
+  public void displayCurrentValueWithCoinsInserted() {
+    this.insertCoins(generateMockCoins(1,1,0,0));
+    assertEquals("35", this.machine.getDisplay());
+  }
+
+  @Test
   public void emptyMachineDoesNotRequireExactChange() {
     assertEquals(false, this.machine.exactChangeRequired());
   }
@@ -372,13 +378,6 @@ public class MachineTest {
   }
 
   @Test
-  public void displayCurrentValueWithCoinsInserted() {
-    this.machine.insertCoin(generateMockCoin(CoinType.QUARTER));
-    this.machine.insertCoin(generateMockCoin(CoinType.DIME));
-    assertEquals("35", this.machine.getDisplay());
-  }
-
-  @Test
   public void purchaseFailsWithNoCoins() {
     this.machine.addProducts(generateMockProducts(1,1,1));
     assertEquals(false, this.machine.purchase(ProductType.CHIPS));
@@ -423,5 +422,4 @@ public class MachineTest {
     assertEquals(1, this.machine.getPurchaseTrayContents().size());
     assertEquals(1, this.machine.numProducts(ProductType.CHIPS));
   }
-
 }
