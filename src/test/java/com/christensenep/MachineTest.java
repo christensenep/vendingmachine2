@@ -339,5 +339,6 @@ public class MachineTest {
   @Test
   public void purchaseFailsWithNoCoins() {
     assertEquals(false, this.machine.purchase(ProductType.CANDY));
+    assertEquals(0, this.machine.getPurchaseTrayContents().size());
   }
 }

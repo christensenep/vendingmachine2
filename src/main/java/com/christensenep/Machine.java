@@ -8,6 +8,7 @@ import java.util.Stack;
 public class Machine {
   private Stack<Coin> insertedCoins = new Stack<Coin>();
   private List<Coin> returnedCoins = new ArrayList<Coin>();
+  private List<Product> purchaseTrayContents = new ArrayList<Product>();
   private EnumMap<CoinType, Stack<Coin>> storedCoins;
   private EnumMap<ProductType, Stack<Product>> storedProducts;
 
@@ -137,6 +138,10 @@ public class Machine {
 
   public List<Coin> getReturnedCoins() {
     return returnedCoins;
+  }
+
+  public List<Product> getPurchaseTrayContents() {
+    return purchaseTrayContents;
   }
 
   public boolean purchase(ProductType productType) {
