@@ -335,4 +335,9 @@ public class MachineTest {
     this.machine.insertCoin(generateMockCoin(CoinType.DIME));
     assertEquals("35", this.machine.getDisplay());
   }
+
+  @Test
+  public void purchaseFailsWithNoCoins() {
+    assertEquals(false, this.machine.purchase(ProductType.CANDY));
+  }
 }

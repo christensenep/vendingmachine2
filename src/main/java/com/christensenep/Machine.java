@@ -139,6 +139,10 @@ public class Machine {
     return returnedCoins;
   }
 
+  public boolean purchase(ProductType productType) {
+    return false;
+  }
+
   boolean exactChangeRequired() {
     boolean exactChangeRequired = false;
 
