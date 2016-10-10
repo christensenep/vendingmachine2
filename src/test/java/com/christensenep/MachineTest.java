@@ -387,4 +387,13 @@ public class MachineTest {
     assertEquals(false, this.machine.purchase(ProductType.CANDY));
     assertEquals(0, this.machine.getPurchaseTrayContents().size());
   }
+
+  @Test
+  public void purchaseFailsWithExactCoinsIfProductSoldOut() {
+    List<Coin> coins = generateMockCoins(2,0,0,0);
+    assertEquals(false, this.machine.purchase(ProductType.CANDY));
+    assertEquals(0, this.machine.getPurchaseTrayContents().size());
+  }
+
+
 }
