@@ -77,6 +77,12 @@ public class MachineTest {
     return products;
   }
 
+  private void insertCoins(List<Coin> coins) {
+    for (Coin coin : coins) {
+      this.machine.insertCoin(coin);
+    }
+  }
+
   @Before
   public void initialize() {
     this.machine = new Machine();
@@ -166,10 +172,7 @@ public class MachineTest {
   @Test
   public void returnedCoinsCorrectWhenMultipleCoinsInsertedAndEjected() {
     List<Coin> coins = generateMockCoins(2,1,0,1);
-
-    for (Coin coin : coins) {
-      this.machine.insertCoin(coin);
-    }
+    this.insertCoins(coins);
 
     List<Coin> returnedCoins = this.machine.getReturnedCoins();
     assertTrue(coins.contains(returnedCoins.get(0)));
@@ -384,10 +387,7 @@ public class MachineTest {
 
   @Test
   public void purchaseFailsWithInsufficentCoins() {
-    List<Coin> coins = generateMockCoins(0,4,1,0);
-    for (Coin coin : coins) {
-      this.machine.insertCoin(coin);
-    }
+    insertCoins(generateMockCoins(0,4,1,0));
 
     this.machine.addProducts(generateMockProducts(1,1,1));
 
@@ -397,10 +397,7 @@ public class MachineTest {
 
   @Test
   public void purchaseFailsWithExactCoinsIfProductSoldOut() {
-    List<Coin> coins = generateMockCoins(2,0,0,0);
-    for (Coin coin : coins) {
-      this.machine.insertCoin(coin);
-    }
+    insertCoins(generateMockCoins(2,0,0,0));
 
     assertEquals(false, this.machine.purchase(ProductType.CANDY));
     assertEquals(0, this.machine.getPurchaseTrayContents().size());
