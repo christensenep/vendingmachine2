@@ -381,7 +381,7 @@ public class MachineTest {
   @Test
   public void purchaseFailsWithNoCoins() {
     this.machine.addProducts(generateMockProducts(1,1,1));
-    assertEquals(false, this.machine.purchase(ProductType.CANDY));
+    assertEquals(false, this.machine.purchase(ProductType.CHIPS));
     assertEquals(0, this.machine.getPurchaseTrayContents().size());
   }
 
@@ -391,7 +391,7 @@ public class MachineTest {
 
     this.machine.addProducts(generateMockProducts(1,1,1));
 
-    assertEquals(false, this.machine.purchase(ProductType.CANDY));
+    assertEquals(false, this.machine.purchase(ProductType.CHIPS));
     assertEquals(0, this.machine.getPurchaseTrayContents().size());
   }
 
@@ -399,9 +399,17 @@ public class MachineTest {
   public void purchaseFailsWithExactCoinsIfProductSoldOut() {
     insertCoins(generateMockCoins(2,0,0,0));
 
-    assertEquals(false, this.machine.purchase(ProductType.CANDY));
+    assertEquals(false, this.machine.purchase(ProductType.CHIPS));
     assertEquals(0, this.machine.getPurchaseTrayContents().size());
   }
 
+  @Test
+  public void purchaseSucceedsWithExactCoins() {
+    insertCoins(generateMockCoins(2,0,0,0));
+    this.machine.addProducts(generateMockProducts(1,1,1));
+
+    assertEquals(true, this.machine.purchase(ProductType.CHIPS));
+    assertEquals(1, this.machine.getPurchaseTrayContents().size());
+  }
 
 }

@@ -145,7 +145,14 @@ public class Machine {
   }
 
   public boolean purchase(ProductType productType) {
-    return false;
+    boolean success = false;
+
+    if (this.numProducts(productType) > 0 && this.getInsertedValue() >= productType.getValue()) {
+      this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
+      success = true;
+    }
+
+    return success;
   }
 
   boolean exactChangeRequired() {
