@@ -406,10 +406,11 @@ public class MachineTest {
   @Test
   public void purchaseSucceedsWithExactCoins() {
     insertCoins(generateMockCoins(2,0,0,0));
-    this.machine.addProducts(generateMockProducts(1,1,1));
+    this.machine.addProducts(generateMockProducts(2,2,2));
 
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
     assertEquals(1, this.machine.getPurchaseTrayContents().size());
+    assertEquals(1, this.machine.numProducts(ProductType.CHIPS));
   }
 
 }
