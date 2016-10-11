@@ -23,18 +23,21 @@ public class Machine {
   }
 
   private void initStoredProductsMap() {
-    storedProducts = new EnumMap<ProductType, Stack<Product>>(ProductType.class);
+    this.storedProducts = new EnumMap<ProductType, Stack<Product>>(ProductType.class);
     for (ProductType productType : ProductType.values()) {
-      storedProducts.put(productType, new Stack<Product>());
+      this.storedProducts.put(productType, new Stack<Product>());
     }
   }
 
   private void initStoredCoinsMap() {
-    storedCoins = new EnumMap<CoinType, Stack<Coin>>(CoinType.class);
+    this.storedCoins = new EnumMap<CoinType, Stack<Coin>>(CoinType.class);
     for (CoinType coinType : CoinType.values()) {
-      storedCoins.put(coinType, new Stack<Coin>());
+      this.storedCoins.put(coinType, new Stack<Coin>());
     }
   }
+
+  public List<Coin> getReturnedCoins() { return this.returnedCoins; }
+  public List<Product> getPurchaseTrayContents() { return this.purchaseTrayContents; }
 
   public double getWeightTolerance() { return this.weightTolerance; }
   public double getDiameterTolerance() { return this.diameterTolerance; }
@@ -60,7 +63,7 @@ public class Machine {
       throw new IllegalArgumentException("product cannot be null");
     }
 
-    storedProducts.get(product.getProductType()).push(product);
+    this.storedProducts.get(product.getProductType()).push(product);
   }
 
   public void addProducts(List<Product> products) {
@@ -74,17 +77,17 @@ public class Machine {
   }
 
   int numProducts(ProductType productType) {
-    return storedProducts.get(productType).size();
+    return this.storedProducts.get(productType).size();
   }
 
   boolean hasProduct(ProductType productType) {
-    return numProducts(productType) > 0;
+    return this.numProducts(productType) > 0;
   }
 
   boolean hasAnyProducts() {
     boolean result = false;
     for (ProductType productType : ProductType.values()) {
-      if (hasProduct(productType)) {
+      if (this.hasProduct(productType)) {
         result = true;
         break;
       }
@@ -104,7 +107,7 @@ public class Machine {
 
     CoinType coinType = this.identifyCoin(coin);
     if (coinType != null) {
-      storedCoins.get(coinType).push(coin);
+      this.storedCoins.get(coinType).push(coin);
     }
   }
 
@@ -119,7 +122,7 @@ public class Machine {
   }
 
   int numStoredCoins(CoinType coinType) {
-    return storedCoins.get(coinType).size();
+    return this.storedCoins.get(coinType).size();
   }
 
   public void insertCoin(Coin coin) {
@@ -129,17 +132,17 @@ public class Machine {
 
     CoinType coinType = this.identifyCoin(coin);
     if (coinType != null) {
-      insertedCoins.add(coin);
+      this.insertedCoins.add(coin);
     }
     else {
-      returnedCoins.add(coin);
+      this.returnedCoins.add(coin);
     }
   }
 
   int getInsertedValue() {
     int insertedValue = 0;
 
-    for (Coin coin : insertedCoins) {
+    for (Coin coin : this.insertedCoins) {
       CoinType coinType = this.identifyCoin(coin);
       if (coinType != null) {
         insertedValue += coinType.getValue();
@@ -150,7 +153,7 @@ public class Machine {
   }
 
   public void ejectCoins() {
-    this.returnedCoins.addAll(insertedCoins);
+    this.returnedCoins.addAll(this.insertedCoins);
     this.insertedCoins.clear();
   }
 
@@ -159,19 +162,11 @@ public class Machine {
     this.insertedCoins.clear();
   }
 
-  public List<Coin> getReturnedCoins() {
-    return returnedCoins;
-  }
-
-  public List<Product> getPurchaseTrayContents() {
-    return purchaseTrayContents;
-  }
-
   public boolean purchase(ProductType productType) {
     boolean successful = false;
     int excessValue = this.getInsertedValue() - productType.getValue();
 
-    if (!hasProduct(productType)) {
+    if (!this.hasProduct(productType)) {
       this.tempMessage = "SOLD OUT";
     }
     else if (excessValue > 0 && this.exactChangeRequired()) {
@@ -183,7 +178,7 @@ public class Machine {
     else
     {
       this.storeInsertedCoins();
-      makeChange(excessValue);
+      this.makeChange(excessValue);
       this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
       this.tempMessage = "THANK YOU";
       successful = true;
@@ -197,7 +192,7 @@ public class Machine {
       throw new IllegalArgumentException("changeValue must be divisible by 5");
     }
     for (CoinType coinType : CoinType.values()) {
-      while (changeValue >= coinType.getValue() && numStoredCoins(coinType) > 0) {
+      while (changeValue >= coinType.getValue() && this.numStoredCoins(coinType) > 0) {
         this.returnedCoins.add(this.storedCoins.get(coinType).pop());
         changeValue -= coinType.getValue();
       }
@@ -205,21 +200,21 @@ public class Machine {
   }
 
   boolean exactChangeRequired() {
-    boolean exactChangeRequired = false;
+    boolean exactChange = false;
 
     if (this.hasAnyProducts()) {
       if (this.numStoredCoins(CoinType.NICKEL) == 0) {
-        exactChangeRequired = true;
+        exactChange = true;
       }
     }
 
     if (this.hasProduct(ProductType.CHIPS)) {
       if (this.numStoredCoins(CoinType.NICKEL) < 2 && this.numStoredCoins(CoinType.DIME) == 0) {
-        exactChangeRequired = true;
+        exactChange = true;
       }
     }
 
-    return exactChangeRequired;
+    return exactChange;
   }
 
   public String getDisplay() {
