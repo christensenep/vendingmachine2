@@ -167,6 +167,7 @@ public class Machine {
       this.storeInsertedCoins();
       this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
       makeChange(excessValue);
+      this.tempMessage = "THANK YOU";
       success = true;
     }
 

@@ -378,6 +378,16 @@ public class MachineTest {
   }
 
   @Test
+  public void displayThankYouTemporarilyWithSucessfulPurchase() {
+    this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
+    this.machine.addProducts(generateMockProducts(2,2,2));
+    insertCoins(generateMockCoins(5,0,0,0));
+    this.machine.purchase(ProductType.COLA);
+    assertEquals("THANK YOU", this.machine.getDisplay());
+    assertEquals("INSERT COIN", this.machine.getDisplay());
+  }
+
+  @Test
   public void emptyMachineDoesNotRequireExactChange() {
     assertEquals(false, this.machine.exactChangeRequired());
   }
