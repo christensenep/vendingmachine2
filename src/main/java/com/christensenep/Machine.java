@@ -79,6 +79,22 @@ public class Machine {
     return storedProducts.get(productType).size();
   }
 
+  boolean hasProduct(ProductType productType) {
+    return numProducts(productType) > 0;
+  }
+
+  boolean hasAnyProducts() {
+    boolean result = false;
+    for (ProductType productType : ProductType.values()) {
+      if (hasProduct(productType)) {
+        result = true;
+        break;
+      }
+    }
+
+    return result;
+  }
+
   CoinType identifyCoin(Coin coin) {
     return CoinType.identifyCoin(coin, this.getWeightTolerance(), this.getDiameterTolerance());
   }
@@ -157,7 +173,7 @@ public class Machine {
     boolean successful = false;
     int excessValue = this.getInsertedValue() - productType.getValue();
 
-    if (this.numProducts(productType) == 0) {
+    if (!hasProduct(productType)) {
       this.tempMessage = "SOLD OUT";
     }
     else if (excessValue > 0 && this.exactChangeRequired()) {
@@ -193,14 +209,14 @@ public class Machine {
   boolean exactChangeRequired() {
     boolean exactChangeRequired = false;
 
-    if (this.numProducts(ProductType.CANDY) > 0 || this.numProducts(ProductType.COLA) > 0 || this.numProducts(ProductType.CHIPS) > 0) {
+    if (this.hasAnyProducts()) {
       if (this.numStoredCoins(CoinType.NICKEL) == 0) {
         exactChangeRequired = true;
       }
     }
 
-    if (this.numProducts(ProductType.CHIPS) > 0) {
-      if (this.numStoredCoins(CoinType.NICKEL) == 1 && this.numStoredCoins(CoinType.DIME) == 0) {
+    if (this.hasProduct(ProductType.CHIPS)) {
+      if (this.numStoredCoins(CoinType.NICKEL) < 2 && this.numStoredCoins(CoinType.DIME) == 0) {
         exactChangeRequired = true;
       }
     }
