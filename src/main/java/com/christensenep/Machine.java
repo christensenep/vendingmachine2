@@ -163,7 +163,11 @@ public class Machine {
     else if (excessValue < 0) {
       this.tempMessage = "PRICE";
     }
-    else if (this.numProducts(productType) > 0) {
+    else if (this.numProducts(productType) == 0) {
+      this.tempMessage = "SOLD OUT";
+    }
+    else
+    {
       this.storeInsertedCoins();
       makeChange(excessValue);
       this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
