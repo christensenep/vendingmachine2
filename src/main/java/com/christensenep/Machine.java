@@ -161,7 +161,7 @@ public class Machine {
       this.tempMessage = "SOLD OUT";
     }
     else if (excessValue > 0 && this.exactChangeRequired()) {
-      this.tempMessage = "EXACT CHANGE REQUIRED";
+      this.tempMessage = "EXACT CHANGE ONLY";
     }
     else if (excessValue < 0) {
       this.tempMessage = "PRICE";
