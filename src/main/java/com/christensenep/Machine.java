@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class Machine {
-  private Stack<Coin> insertedCoins = new Stack<Coin>();
+  private List<Coin> insertedCoins = new ArrayList<Coin>();
   private List<Coin> returnedCoins = new ArrayList<Coin>();
   private List<Product> purchaseTrayContents = new ArrayList<Product>();
   private EnumMap<CoinType, Stack<Coin>> storedCoins;
@@ -60,7 +60,7 @@ public class Machine {
       throw new IllegalArgumentException("product cannot be null");
     }
 
-    storedProducts.get(product.getProductType()).add(product);
+    storedProducts.get(product.getProductType()).push(product);
   }
 
   public void addProducts(List<Product> products) {
