@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -95,6 +96,31 @@ public class MachineTest {
     assertEquals(candies, this.machine.numProducts(ProductType.CANDY));
   }
 
+  private void checkReturnedCoins(int quarters, int dimes, int nickels, int invalids) {
+    int actualInvalids = 0;
+
+    EnumMap<CoinType, Integer> actualCoins = new EnumMap<CoinType, Integer>(CoinType.class);
+    for (CoinType coinType : CoinType.values()) {
+      actualCoins.put(coinType, 0);
+    }
+
+    List<Coin> coins = this.machine.getReturnedCoins();
+    for (Coin coin : coins) {
+      CoinType coinType = this.machine.identifyCoin(coin);
+      if (coinType != null) {
+        actualCoins.put(coinType, actualCoins.get(coinType) + 1);
+      }
+      else {
+        ++actualInvalids;
+      }
+    }
+
+    assertEquals(invalids, actualInvalids);
+    assertEquals(quarters, actualCoins.get(CoinType.QUARTER).intValue());
+    assertEquals(dimes, actualCoins.get(CoinType.DIME).intValue());
+    assertEquals(nickels, actualCoins.get(CoinType.NICKEL).intValue());
+  }
+
   @Before
   public void initialize() {
     this.machine = new Machine();
@@ -156,8 +182,7 @@ public class MachineTest {
 
   @Test
   public void noReturnedCoinsInitially() {
-    List<Coin> returnedCoins = this.machine.getReturnedCoins();
-    assertEquals(0, returnedCoins.size());
+    checkReturnedCoins(0,0,0,0);
   }
 
   @Test
@@ -429,8 +454,9 @@ public class MachineTest {
 
   @Test
   public void makeChangeWithNoExcess() {
-    insertCoins(generateMockCoins(2,0,0,0));
+    this.machine.addStoredCoins(generateMockCoins(2,0,0,0));
     this.machine.makeChange(0);
-    assertEquals(0, this.machine.getReturnedCoins().size());
+    checkStoredCoins(2,0,0);
+    checkReturnedCoins(0,0,0,0);
   }
 }
