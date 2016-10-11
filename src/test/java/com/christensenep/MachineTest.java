@@ -473,6 +473,20 @@ public class MachineTest {
   }
 
   @Test
+  public void purchaseSucceedsWithExcessCoinsRequiredToMakeChange() {
+    insertCoins(generateMockCoins(1,5,0,0));
+    this.machine.addProducts(generateMockProducts(2,2,2));
+    this.machine.addStoredCoins(generateMockCoins(0,1,1,0));
+
+    assertEquals(true, this.machine.purchase(ProductType.CHIPS));
+    checkPurchaseTrayContents(0,1,0);
+    checkProducts(2,1,2);
+    checkStoredCoins(0,6,1);
+    checkReturnedCoins(1,0,0,0);
+  }
+
+
+  @Test
   public void makeZeroChange() {
     this.machine.addStoredCoins(generateMockCoins(2,0,0,0));
     this.machine.makeChange(0);
