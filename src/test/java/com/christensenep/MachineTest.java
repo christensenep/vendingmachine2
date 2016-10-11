@@ -378,7 +378,7 @@ public class MachineTest {
   }
 
   @Test
-  public void displayThankYouTemporarilyWithSucessfulPurchase() {
+  public void displayThankYouTemporarilyWithSuccessfulPurchase() {
     this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
     this.machine.addProducts(generateMockProducts(2,2,2));
     insertCoins(generateMockCoins(5,0,0,0));
