@@ -408,6 +408,17 @@ public class MachineTest {
   }
 
   @Test
+  public void displaySoldOutWhenAtttemptingPurchaseWithExcessCoinsWhenExactChangeRequired() {
+    this.machine.addStoredCoins(generateMockCoins(0,0,1,0));
+    this.machine.addProducts(generateMockProducts(2,0,2));
+    insertCoins(generateMockCoins(3,0,0,0));
+    this.machine.purchase(ProductType.CHIPS);
+    assertEquals("SOLD OUT", this.machine.getDisplay());
+    assertEquals("75", this.machine.getDisplay());
+  }
+
+
+  @Test
   public void displaySoldOutWhenAttemptingPurchaseWithInsufficientChangeInserted() {
     this.machine.addStoredCoins(generateMockCoins(0,0,1,0));
     this.machine.addProducts(generateMockProducts(2,0,2));
