@@ -138,6 +138,11 @@ public class Machine {
     this.insertedCoins.clear();
   }
 
+  void storeInsertedCoins() {
+    this.addStoredCoins(this.insertedCoins);
+    this.insertedCoins.clear();
+  }
+
   public List<Coin> getReturnedCoins() {
     return returnedCoins;
   }
@@ -148,10 +153,12 @@ public class Machine {
 
   public boolean purchase(ProductType productType) {
     boolean success = false;
+    int insertedValue = this.getInsertedValue();
 
     if (this.numProducts(productType) > 0 && this.getInsertedValue() >= productType.getValue()) {
+      this.storeInsertedCoins();
       this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
-      makeChange(this.getInsertedValue() - productType.getValue());
+      makeChange(insertedValue - productType.getValue());
       success = true;
     }
 
