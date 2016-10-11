@@ -156,6 +156,10 @@ public class Machine {
   }
 
   void makeChange(int changeValue) {
+    while (changeValue > 0) {
+      this.returnedCoins.add(this.storedCoins.get(CoinType.NICKEL).pop());
+      changeValue -= 5;
+    }
   }
 
   boolean exactChangeRequired() {

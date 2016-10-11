@@ -459,4 +459,12 @@ public class MachineTest {
     checkStoredCoins(2,0,0);
     checkReturnedCoins(0,0,0,0);
   }
+
+  @Test
+  public void makeChangeWithFiveExcess() {
+    this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
+    this.machine.makeChange(5);
+    checkStoredCoins(2,2,1);
+    checkReturnedCoins(0,0,1,0);
+  }
 }
