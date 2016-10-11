@@ -157,14 +157,14 @@ public class Machine {
     boolean successful = false;
     int excessValue = this.getInsertedValue() - productType.getValue();
 
-    if (excessValue > 0 && this.exactChangeRequired()) {
+    if (this.numProducts(productType) == 0) {
+      this.tempMessage = "SOLD OUT";
+    }
+    else if (excessValue > 0 && this.exactChangeRequired()) {
       this.tempMessage = "EXACT CHANGE REQUIRED";
     }
     else if (excessValue < 0) {
       this.tempMessage = "PRICE";
-    }
-    else if (this.numProducts(productType) == 0) {
-      this.tempMessage = "SOLD OUT";
     }
     else
     {
