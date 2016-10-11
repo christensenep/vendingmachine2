@@ -121,6 +121,22 @@ public class MachineTest {
     assertEquals(nickels, actualCoins.get(CoinType.NICKEL).intValue());
   }
 
+  private void checkPurchaseTrayContents(int colas, int chips, int candies) {
+    EnumMap<ProductType, Integer> actualPurchaseTrayContents = new EnumMap<ProductType, Integer>(ProductType.class);
+    for (ProductType productType : ProductType.values()) {
+      actualPurchaseTrayContents.put(productType, 0);
+    }
+
+    List<Product> purchaseTrayContents = this.machine.getPurchaseTrayContents();
+    for (Product product : purchaseTrayContents) {
+      actualPurchaseTrayContents.put(product.getProductType(), actualPurchaseTrayContents.get(product.getProductType()) + 1);
+    }
+
+    assertEquals(colas, actualPurchaseTrayContents.get(ProductType.COLA).intValue());
+    assertEquals(chips, actualPurchaseTrayContents.get(ProductType.CHIPS).intValue());
+    assertEquals(candies, actualPurchaseTrayContents.get(ProductType.CANDY).intValue());
+  }
+
   @Before
   public void initialize() {
     this.machine = new Machine();
@@ -410,7 +426,7 @@ public class MachineTest {
   public void purchaseFailsWithNoCoins() {
     this.machine.addProducts(generateMockProducts(1,1,1));
     assertEquals(false, this.machine.purchase(ProductType.CHIPS));
-    assertEquals(0, this.machine.getPurchaseTrayContents().size());
+    checkPurchaseTrayContents(0,0,0);
   }
 
   @Test
@@ -420,7 +436,7 @@ public class MachineTest {
     this.machine.addProducts(generateMockProducts(1,1,1));
 
     assertEquals(false, this.machine.purchase(ProductType.CHIPS));
-    assertEquals(0, this.machine.getPurchaseTrayContents().size());
+    checkPurchaseTrayContents(0,0,0);
   }
 
   @Test
@@ -428,7 +444,7 @@ public class MachineTest {
     insertCoins(generateMockCoins(2,0,0,0));
 
     assertEquals(false, this.machine.purchase(ProductType.CHIPS));
-    assertEquals(0, this.machine.getPurchaseTrayContents().size());
+    checkPurchaseTrayContents(0,0,0);
   }
 
   @Test
@@ -437,7 +453,7 @@ public class MachineTest {
     this.machine.addProducts(generateMockProducts(2,2,2));
 
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
-    assertEquals(1, this.machine.getPurchaseTrayContents().size());
+    checkPurchaseTrayContents(0,1,0);
     checkProducts(2,1,2);
   }
 
@@ -448,7 +464,7 @@ public class MachineTest {
     this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
 
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
-    assertEquals(1, this.machine.getPurchaseTrayContents().size());
+    checkPurchaseTrayContents(0,1,0);
     checkProducts(2,1,2);
   }
 
