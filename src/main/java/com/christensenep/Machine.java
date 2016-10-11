@@ -153,15 +153,15 @@ public class Machine {
 
   public boolean purchase(ProductType productType) {
     boolean success = false;
-    int insertedValue = this.getInsertedValue();
+    int excessValue = this.getInsertedValue() - productType.getValue();
 
-    if (productType.getValue() != insertedValue && this.exactChangeRequired()) {
+    if (excessValue > 0 && this.exactChangeRequired()) {
       success = false;
     }
-    else if (this.numProducts(productType) > 0 && this.getInsertedValue() >= productType.getValue()) {
+    else if (this.numProducts(productType) > 0 && excessValue >= 0) {
       this.storeInsertedCoins();
       this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
-      makeChange(insertedValue - productType.getValue());
+      makeChange(excessValue);
       success = true;
     }
 
