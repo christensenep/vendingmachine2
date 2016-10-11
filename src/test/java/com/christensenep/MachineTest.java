@@ -485,6 +485,18 @@ public class MachineTest {
     checkReturnedCoins(1,0,0,0);
   }
 
+  @Test
+  public void purchaseFailsWithExcessCoinsWhenExactChangeRequired() {
+    insertCoins(generateMockCoins(1,5,0,0));
+    this.machine.addProducts(generateMockProducts(2,2,2));
+    this.machine.addStoredCoins(generateMockCoins(0,0,1,0));
+
+    assertEquals(false, this.machine.purchase(ProductType.CHIPS));
+    checkPurchaseTrayContents(0,0,0);
+    checkProducts(2,2,2);
+    checkStoredCoins(0,0,1);
+    checkReturnedCoins(0,0,0,0);
+  }
 
   @Test
   public void makeZeroChange() {
