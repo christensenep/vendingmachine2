@@ -156,9 +156,13 @@ public class Machine {
   }
 
   void makeChange(int changeValue) {
-    while (changeValue > 0) {
+    while (changeValue >= CoinType.DIME.getValue()) {
+      this.returnedCoins.add(this.storedCoins.get(CoinType.DIME).pop());
+      changeValue -= CoinType.DIME.getValue();
+    }
+    while (changeValue >= CoinType.NICKEL.getValue()) {
       this.returnedCoins.add(this.storedCoins.get(CoinType.NICKEL).pop());
-      changeValue -= 5;
+      changeValue -= CoinType.NICKEL.getValue();
     }
   }
 
