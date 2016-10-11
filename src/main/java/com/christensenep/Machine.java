@@ -151,6 +151,7 @@ public class Machine {
 
     if (this.numProducts(productType) > 0 && this.getInsertedValue() >= productType.getValue()) {
       this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
+      makeChange(this.getInsertedValue() - productType.getValue());
       success = true;
     }
 

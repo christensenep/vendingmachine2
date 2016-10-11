@@ -455,6 +455,7 @@ public class MachineTest {
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
     checkPurchaseTrayContents(0,1,0);
     checkProducts(2,1,2);
+    checkReturnedCoins(0,0,0,0);
   }
 
   @Test
@@ -466,6 +467,7 @@ public class MachineTest {
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
     checkPurchaseTrayContents(0,1,0);
     checkProducts(2,1,2);
+    checkReturnedCoins(0,0,1,0);
   }
 
   @Test
