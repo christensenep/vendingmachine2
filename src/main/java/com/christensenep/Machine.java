@@ -156,17 +156,11 @@ public class Machine {
   }
 
   void makeChange(int changeValue) {
-    while (changeValue >= CoinType.QUARTER.getValue()) {
-      this.returnedCoins.add(this.storedCoins.get(CoinType.QUARTER).pop());
-      changeValue -= CoinType.QUARTER.getValue();
-    }
-    while (changeValue >= CoinType.DIME.getValue()) {
-      this.returnedCoins.add(this.storedCoins.get(CoinType.DIME).pop());
-      changeValue -= CoinType.DIME.getValue();
-    }
-    while (changeValue >= CoinType.NICKEL.getValue()) {
-      this.returnedCoins.add(this.storedCoins.get(CoinType.NICKEL).pop());
-      changeValue -= CoinType.NICKEL.getValue();
+    for (CoinType coinType : CoinType.values()) {
+      while (changeValue >= coinType.getValue()) {
+        this.returnedCoins.add(this.storedCoins.get(coinType).pop());
+        changeValue -= coinType.getValue();
+      }
     }
   }
 
