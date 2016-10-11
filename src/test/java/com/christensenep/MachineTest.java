@@ -453,7 +453,7 @@ public class MachineTest {
   }
 
   @Test
-  public void makeChangeWithNoExcess() {
+  public void makeZeroChange() {
     this.machine.addStoredCoins(generateMockCoins(2,0,0,0));
     this.machine.makeChange(0);
     checkStoredCoins(2,0,0);
@@ -461,7 +461,7 @@ public class MachineTest {
   }
 
   @Test
-  public void makeChangeWithFiveExcess() {
+  public void makeFiveCentsChange() {
     this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
     this.machine.makeChange(5);
     checkStoredCoins(2,2,1);
