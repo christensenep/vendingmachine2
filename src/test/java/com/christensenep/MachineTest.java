@@ -388,6 +388,16 @@ public class MachineTest {
   }
 
   @Test
+  public void displayExactChangeRequiredWhenAttemptingPurchaseWithExcessChange() {
+    this.machine.addStoredCoins(generateMockCoins(0,0,1,0));
+    this.machine.addProducts(generateMockProducts(2,2,2));
+    insertCoins(generateMockCoins(3,0,0,0));
+    this.machine.purchase(ProductType.CHIPS);
+    assertEquals("EXACT CHANGE REQUIRED", this.machine.getDisplay());
+    assertEquals("75", this.machine.getDisplay());
+  }
+
+  @Test
   public void emptyMachineDoesNotRequireExactChange() {
     assertEquals(false, this.machine.exactChangeRequired());
   }

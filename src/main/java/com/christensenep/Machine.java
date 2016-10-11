@@ -159,6 +159,7 @@ public class Machine {
 
     if (excessValue > 0 && this.exactChangeRequired()) {
       success = false;
+      this.tempMessage = "EXACT CHANGE REQUIRED";
     }
     else if (excessValue < 0) {
       this.tempMessage = "PRICE";
