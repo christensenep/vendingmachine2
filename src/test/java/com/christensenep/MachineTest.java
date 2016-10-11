@@ -422,4 +422,11 @@ public class MachineTest {
     assertEquals(1, this.machine.getPurchaseTrayContents().size());
     assertEquals(1, this.machine.numProducts(ProductType.CHIPS));
   }
+
+  @Test
+  public void makeChangeWithNoExcess() {
+    insertCoins(generateMockCoins(2, 0, 0, 0));
+    this.machine.makeChange(0);
+    assertEquals(0, this.machine.getReturnedCoins().size());
+  }
 }

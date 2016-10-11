@@ -155,6 +155,9 @@ public class Machine {
     return success;
   }
 
+  void makeChange(int changeValue) {
+  }
+
   boolean exactChangeRequired() {
     boolean exactChangeRequired = false;
 
