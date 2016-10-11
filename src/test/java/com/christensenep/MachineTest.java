@@ -9,6 +9,7 @@ import java.util.EnumMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -355,6 +356,15 @@ public class MachineTest {
   public void displayCurrentValueWithCoinsInserted() {
     this.insertCoins(generateMockCoins(1,1,0,0));
     assertEquals("35", this.machine.getDisplay());
+  }
+
+  @Test
+  public void displayPriceTemporarilyWhenPurchasingWithNoCoins() {
+    this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
+    this.machine.addProducts(generateMockProducts(2,2,2));
+    this.machine.purchase(ProductType.COLA);
+    assertEquals("PRICE", this.machine.getDisplay());
+    assertEquals("INSERT COIN", this.machine.getDisplay());
   }
 
   @Test

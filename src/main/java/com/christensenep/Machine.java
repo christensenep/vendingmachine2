@@ -17,6 +17,8 @@ public class Machine {
   private double diameterTolerance = 0.0;
   private double weightTolerance = 0.0;
 
+  private String tempMessage = null;
+
   public Machine() {
     initStoredProductsMap();
     initStoredCoinsMap();
@@ -158,7 +160,10 @@ public class Machine {
     if (excessValue > 0 && this.exactChangeRequired()) {
       success = false;
     }
-    else if (this.numProducts(productType) > 0 && excessValue >= 0) {
+    else if (excessValue < 0) {
+      this.tempMessage = "PRICE";
+    }
+    else if (this.numProducts(productType) > 0) {
       this.storeInsertedCoins();
       this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
       makeChange(excessValue);
@@ -201,7 +206,11 @@ public class Machine {
   public String getDisplay() {
     String displayString;
 
-    if (this.getInsertedValue() > 0) {
+    if (this.tempMessage != null) {
+      displayString = this.tempMessage;
+      this.tempMessage = null;
+    }
+    else if (this.getInsertedValue() > 0) {
       displayString = Integer.toString(this.getInsertedValue());
     }
     else if (this.exactChangeRequired()) {
