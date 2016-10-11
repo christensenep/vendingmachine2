@@ -154,11 +154,10 @@ public class Machine {
   }
 
   public boolean purchase(ProductType productType) {
-    boolean success = false;
+    boolean successful = false;
     int excessValue = this.getInsertedValue() - productType.getValue();
 
     if (excessValue > 0 && this.exactChangeRequired()) {
-      success = false;
       this.tempMessage = "EXACT CHANGE REQUIRED";
     }
     else if (excessValue < 0) {
@@ -166,13 +165,13 @@ public class Machine {
     }
     else if (this.numProducts(productType) > 0) {
       this.storeInsertedCoins();
-      this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
       makeChange(excessValue);
+      this.purchaseTrayContents.add(this.storedProducts.get(productType).pop());
       this.tempMessage = "THANK YOU";
-      success = true;
+      successful = true;
     }
 
-    return success;
+    return successful;
   }
 
   void makeChange(int changeValue) {
