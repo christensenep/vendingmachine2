@@ -491,4 +491,12 @@ public class MachineTest {
     checkStoredCoins(0,0,1);
     checkReturnedCoins(0,2,1,0);
   }
+
+  @Test
+  public void makeTwentyFiveCentsChangeWithNoStoredQuartersAndOneDime() {
+    this.machine.addStoredCoins(generateMockCoins(0,1,5,0));
+    this.machine.makeChange(25);
+    checkStoredCoins(0,0,2);
+    checkReturnedCoins(0,1,3,0);
+  }
 }
