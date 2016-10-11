@@ -83,6 +83,18 @@ public class MachineTest {
     }
   }
 
+  private void checkStoredCoins(int quarters, int dimes, int nickels) {
+    assertEquals(quarters, this.machine.numStoredCoins(CoinType.QUARTER));
+    assertEquals(dimes, this.machine.numStoredCoins(CoinType.DIME));
+    assertEquals(nickels, this.machine.numStoredCoins(CoinType.NICKEL));
+  }
+
+  private void checkProducts(int colas, int chips, int candies) {
+    assertEquals(colas, this.machine.numProducts(ProductType.COLA));
+    assertEquals(chips, this.machine.numProducts(ProductType.CHIPS));
+    assertEquals(candies, this.machine.numProducts(ProductType.CANDY));
+  }
+
   @Before
   public void initialize() {
     this.machine = new Machine();
@@ -186,15 +198,13 @@ public class MachineTest {
 
   @Test
   public void hasNoProductsInitially() {
-    for (ProductType productType : ProductType.values()) {
-      assertEquals(0, this.machine.numProducts(productType));
-    }
+    checkProducts(0,0,0);
   }
 
   @Test
   public void hasOneCandyAfterAddingOne() {
     this.machine.addProduct(generateMockProduct(ProductType.CANDY));
-    assertEquals(1, this.machine.numProducts(ProductType.CANDY));
+    checkProducts(0,0,1);
   }
 
   @Test(expected=IllegalArgumentException.class)
@@ -211,32 +221,26 @@ public class MachineTest {
   public void hasProperNumberOfEachProductAfterAddingAListOfProducts() {
     List<Product> products = generateMockProducts(1,0,2);
     this.machine.addProducts(products);
-    assertEquals(2, this.machine.numProducts(ProductType.CANDY));
-    assertEquals(1, this.machine.numProducts(ProductType.COLA));
-    assertEquals(0, this.machine.numProducts(ProductType.CHIPS));
+    checkProducts(1,0,2);
   }
 
   @Test
   public void hasNoStoredCoinsInitially() {
-    for (CoinType coinType : CoinType.values()) {
-      assertEquals(0, this.machine.numStoredCoins(coinType));
-    }
+    checkStoredCoins(0,0,0);
   }
 
   @Test
   public void hasOneQuarterAfterAddingOne() {
     Coin mockQuarter = generateMockCoin(CoinType.QUARTER);
     this.machine.addStoredCoin(mockQuarter);
-    assertEquals(1, this.machine.numStoredCoins(CoinType.QUARTER));
+    checkStoredCoins(1,0,0);
   }
 
   @Test
   public void hasProperNumberOfCoinsAfterAddingListOfCoins() {
     List<Coin> coins = generateMockCoins(1,2,0,0);
     this.machine.addStoredCoins(coins);
-    assertEquals(2, this.machine.numStoredCoins(CoinType.DIME));
-    assertEquals(1, this.machine.numStoredCoins(CoinType.QUARTER));
-    assertEquals(0, this.machine.numStoredCoins(CoinType.NICKEL));
+    checkStoredCoins(1,2,0);
   }
 
   @Test(expected=IllegalArgumentException.class)
@@ -409,7 +413,7 @@ public class MachineTest {
 
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
     assertEquals(1, this.machine.getPurchaseTrayContents().size());
-    assertEquals(1, this.machine.numProducts(ProductType.CHIPS));
+    checkProducts(2,1,2);
   }
 
   @Test
@@ -420,12 +424,12 @@ public class MachineTest {
 
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
     assertEquals(1, this.machine.getPurchaseTrayContents().size());
-    assertEquals(1, this.machine.numProducts(ProductType.CHIPS));
+    checkProducts(2,1,2);
   }
 
   @Test
   public void makeChangeWithNoExcess() {
-    insertCoins(generateMockCoins(2, 0, 0, 0));
+    insertCoins(generateMockCoins(2,0,0,0));
     this.machine.makeChange(0);
     assertEquals(0, this.machine.getReturnedCoins().size());
   }
