@@ -507,4 +507,9 @@ public class MachineTest {
     checkStoredCoins(0,1,1);
     checkReturnedCoins(2,1,1,0);
   }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void exceptionThrownWhenMakingChangeNotDivisibleByFive() {
+    this.machine.makeChange(4);
+  }
 }

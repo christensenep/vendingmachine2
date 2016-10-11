@@ -1,5 +1,7 @@
 package com.christensenep;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -156,6 +158,9 @@ public class Machine {
   }
 
   void makeChange(int changeValue) {
+    if (changeValue % 5 != 0) {
+      throw new IllegalArgumentException("changeValue must be divisible by 5");
+    }
     for (CoinType coinType : CoinType.values()) {
       while (changeValue >= coinType.getValue() && numStoredCoins(coinType) > 0) {
         this.returnedCoins.add(this.storedCoins.get(coinType).pop());
