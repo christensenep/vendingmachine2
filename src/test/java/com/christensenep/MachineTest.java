@@ -475,4 +475,12 @@ public class MachineTest {
     checkStoredCoins(2,1,2);
     checkReturnedCoins(0,1,0,0);
   }
+
+  @Test
+  public void makeTwentyFiveCentsChange() {
+    this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
+    this.machine.makeChange(25);
+    checkStoredCoins(1,2,2);
+    checkReturnedCoins(1,0,0,0);
+  }
 }

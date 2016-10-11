@@ -156,6 +156,10 @@ public class Machine {
   }
 
   void makeChange(int changeValue) {
+    while (changeValue >= CoinType.QUARTER.getValue()) {
+      this.returnedCoins.add(this.storedCoins.get(CoinType.QUARTER).pop());
+      changeValue -= CoinType.QUARTER.getValue();
+    }
     while (changeValue >= CoinType.DIME.getValue()) {
       this.returnedCoins.add(this.storedCoins.get(CoinType.DIME).pop());
       changeValue -= CoinType.DIME.getValue();
