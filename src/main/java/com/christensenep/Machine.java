@@ -157,7 +157,7 @@ public class Machine {
 
   void makeChange(int changeValue) {
     for (CoinType coinType : CoinType.values()) {
-      while (changeValue >= coinType.getValue()) {
+      while (changeValue >= coinType.getValue() && numStoredCoins(coinType) > 0) {
         this.returnedCoins.add(this.storedCoins.get(coinType).pop());
         changeValue -= coinType.getValue();
       }
