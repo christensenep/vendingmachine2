@@ -450,6 +450,19 @@ public class MachineTest {
   @Test
   public void purchaseSucceedsWithExactCoins() {
     insertCoins(generateMockCoins(2,0,0,0));
+    this.machine.addStoredCoins(generateMockCoins(2,2,2,0));
+    this.machine.addProducts(generateMockProducts(2,2,2));
+
+    assertEquals(true, this.machine.purchase(ProductType.CHIPS));
+    checkPurchaseTrayContents(0,1,0);
+    checkProducts(2,1,2);
+    checkStoredCoins(4,2,2);
+    checkReturnedCoins(0,0,0,0);
+  }
+
+  @Test
+  public void purchaseSucceedsWithExactCoinsWhenExactChangeRequired() {
+    insertCoins(generateMockCoins(2,0,0,0));
     this.machine.addProducts(generateMockProducts(2,2,2));
 
     assertEquals(true, this.machine.purchase(ProductType.CHIPS));
